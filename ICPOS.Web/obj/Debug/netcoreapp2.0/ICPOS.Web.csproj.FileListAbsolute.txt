@@ -1,0 +1,11 @@
+E:\ASP.Net Core\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.deps.json
+E:\ASP.Net Core\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.runtimeconfig.json
+E:\ASP.Net Core\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.runtimeconfig.dev.json
+E:\ASP.Net Core\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.dll
+E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.csprojAssemblyReference.cache
+E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.csproj.CoreCompileInputs.cache
+E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.AssemblyInfoInputs.cache
+E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.AssemblyInfo.cs
+E:\ASP.Net Core\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.pdb
+E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.dll
+E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.pdb
