@@ -1,0 +1,8 @@
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\netcoreapp2.1\ICPOS.EntityFramwork.deps.json
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\netcoreapp2.1\ICPOS.EntityFramwork.dll
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\netcoreapp2.1\ICPOS.EntityFramwork.pdb
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\netcoreapp2.1\ICPOS.EntityFramwork.csproj.CoreCompileInputs.cache
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\netcoreapp2.1\ICPOS.EntityFramwork.AssemblyInfoInputs.cache
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\netcoreapp2.1\ICPOS.EntityFramwork.AssemblyInfo.cs
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\netcoreapp2.1\ICPOS.EntityFramwork.dll
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\netcoreapp2.1\ICPOS.EntityFramwork.pdb

@@ -1,0 +1,14 @@
+F:\GIT\ICPOS\ICPOS.Common\obj\Debug\netcoreapp2.1\ICPOS.Common.csprojAssemblyReference.cache
+F:\GIT\ICPOS\ICPOS.Common\obj\Debug\netcoreapp2.1\ICPOS.Common.csproj.CoreCompileInputs.cache
+F:\GIT\ICPOS\ICPOS.Common\obj\Debug\netcoreapp2.1\ICPOS.Common.AssemblyInfoInputs.cache
+F:\GIT\ICPOS\ICPOS.Common\obj\Debug\netcoreapp2.1\ICPOS.Common.AssemblyInfo.cs
+F:\GIT\ICPOS\ICPOS.Common\bin\Debug\netcoreapp2.1\ICPOS.Common.deps.json
+F:\GIT\ICPOS\ICPOS.Common\bin\Debug\netcoreapp2.1\ICPOS.Common.dll
+F:\GIT\ICPOS\ICPOS.Common\bin\Debug\netcoreapp2.1\ICPOS.Common.pdb
+F:\GIT\ICPOS\ICPOS.Common\bin\Debug\netcoreapp2.1\ICPOS.EntityFramwork.dll
+F:\GIT\ICPOS\ICPOS.Common\bin\Debug\netcoreapp2.1\Microsoft.EntityFrameworkCore.dll
+F:\GIT\ICPOS\ICPOS.Common\bin\Debug\netcoreapp2.1\ICPOS.EntityFramwork.pdb
+F:\GIT\ICPOS\ICPOS.Common\bin\Debug\netcoreapp2.1\Microsoft.EntityFrameworkCore.xml
+F:\GIT\ICPOS\ICPOS.Common\obj\Debug\netcoreapp2.1\ICPOS.Common.csproj.CopyComplete
+F:\GIT\ICPOS\ICPOS.Common\obj\Debug\netcoreapp2.1\ICPOS.Common.dll
+F:\GIT\ICPOS\ICPOS.Common\obj\Debug\netcoreapp2.1\ICPOS.Common.pdb

@@ -9,3 +9,13 @@ E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.AssemblyInfo.c
 E:\ASP.Net Core\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.pdb
 E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.dll
 E:\ASP.Net Core\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.pdb
+F:\GIT\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.deps.json
+F:\GIT\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.runtimeconfig.json
+F:\GIT\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.runtimeconfig.dev.json
+F:\GIT\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.dll
+F:\GIT\ICPOS\ICPOS.Web\bin\Debug\netcoreapp2.0\ICPOS.Web.pdb
+F:\GIT\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.csproj.CoreCompileInputs.cache
+F:\GIT\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.AssemblyInfoInputs.cache
+F:\GIT\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.AssemblyInfo.cs
+F:\GIT\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.dll
+F:\GIT\ICPOS\ICPOS.Web\obj\Debug\netcoreapp2.0\ICPOS.Web.pdb
