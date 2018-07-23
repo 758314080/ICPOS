@@ -687,11 +687,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\GIT\\ICPOS\\ICPOS.Entity\\ICPOS.EntityFramwor.csproj",
-      "projectName": "ICPOS.EntityFramwor",
-      "projectPath": "F:\\GIT\\ICPOS\\ICPOS.Entity\\ICPOS.EntityFramwor.csproj",
+      "projectUniqueName": "F:\\GIT\\ICPOS\\ICPOS.EntityFramwork\\ICPOS.EntityFramwork.csproj",
+      "projectName": "ICPOS.EntityFramwork",
+      "projectPath": "F:\\GIT\\ICPOS\\ICPOS.EntityFramwork\\ICPOS.EntityFramwork.csproj",
       "packagesPath": "C:\\Users\\v.chenglong\\.nuget\\packages\\",
-      "outputPath": "F:\\GIT\\ICPOS\\ICPOS.Entity\\obj\\",
+      "outputPath": "F:\\GIT\\ICPOS\\ICPOS.EntityFramwork\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
