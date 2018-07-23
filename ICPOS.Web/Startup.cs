@@ -30,6 +30,8 @@ namespace ICPOS.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            
+            //services.addt
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
