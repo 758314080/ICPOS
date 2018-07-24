@@ -1,0 +1,9 @@
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\ICPOS.EntityFramwork.dll
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\ICPOS.EntityFramwork.pdb
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.csprojAssemblyReference.cache
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.csproj.CoreCompileInputs.cache
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.dll
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.pdb
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\ICPOS.Common.dll
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\ICPOS.Common.pdb
+F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.csproj.CopyComplete

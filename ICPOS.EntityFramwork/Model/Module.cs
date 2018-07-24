@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2018/7/23 18:01:21   N/A    初版
+* V0.01  2018/7/24 15:38:17   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -27,6 +27,7 @@ namespace ICPOS.EntityFramwork.Model
 		{}
 		#region Model
 		private int _module_id;
+		private int? _type;
 		private string _module_name;
 		private int? _module_parent;
 		private string _module_hierarchy;
@@ -42,6 +43,14 @@ namespace ICPOS.EntityFramwork.Model
 		{
 			set{ _module_id=value;}
 			get{return _module_id;}
+		}
+		/// <summary>
+		/// 类型
+		/// </summary>
+		public int? Type
+		{
+			set{ _type=value;}
+			get{return _type;}
 		}
 		/// <summary>
 		/// 模块名称
