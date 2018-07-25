@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -17,90 +16,65 @@
 </head>
 <body>
 
-    <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login" style="display: none;">
-
+    <div class="layadmin-user-login layadmin-user-display-show" id="LAY-user-login">
         <div class="layadmin-user-login-main">
             <div class="layadmin-user-login-box layadmin-user-login-header">
                 <h2>layuiAdmin</h2>
                 <p>layui 官方出品的单页面后台管理模板系统</p>
             </div>
-            <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+            <form class="layui-form" action="" lay-filter="example">
                 <div class="layui-form-item">
-                    <label class="layadmin-user-login-icon layui-icon layui-icon-username" for="LAY-user-login-username"></label>
-                    <input type="text" name="username" id="LAY-user-login-username" lay-verify="required" placeholder="用户名" class="layui-input">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" lay-verify="username" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+                    </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layadmin-user-login-icon layui-icon layui-icon-password" for="LAY-user-login-password"></label>
-                    <input type="password" name="password" id="LAY-user-login-password" lay-verify="required" placeholder="密码" class="layui-input">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password" lay-verify="pass" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
                 </div>
-                @*<div class="layui-form-item">
-                        <div class="layui-row">
-                            <div class="layui-col-xs7">
-                                <label class="layadmin-user-login-icon layui-icon layui-icon-vercode" for="LAY-user-login-vercode"></label>
-                                <input type="text" name="vercode" id="LAY-user-login-vercode" lay-verify="required" placeholder="图形验证码" class="layui-input">
-                            </div>
-                            <div class="layui-col-xs5">
-                                <div style="margin-left: 10px;">
-                                    <img src="https://www.oschina.net/action/user/captcha" class="layadmin-user-login-codeimg" id="LAY-user-get-vercode">
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
                 <div class="layui-form-item">
-                    <button class="layui-btn layui-btn-fluid" lay-submit lay-filter="LAY-user-login-submit">登 入</button>
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
 
         <div class="layui-trans layadmin-user-login-footer">
-
-            <p>鞋业专用</p>
+            <p>CL专用</p>
         </div>
 
     </div>
     <script src="~/Script/layui/layui.js"></script>
     <script>
-        layui.use('from', function () {
-            var form = layui.form
-                , layer = layui.layer;
+        layui.use(['form'], function () {
+            var $ = layui.jquery
+                , form = layui.form
+                , layer = layui.layer
 
-            form.render();
-
-            //提交
-            form.on('submit(LAY-user-login-submit)', function (obj) {
-
-                //请求登入接口
-                admin.req({
-                    url: '@Url.Action("CheckLogin")' //实际使用请改成服务端真实接口
-                    , data: obj.field
-                    , done: function (res) {
-
-                        //请求成功后，写入 access_token
-                        layui.data(setter.tableName, {
-                            key: setter.request.tokenName
-                            , value: res.data.access_token
-                        });
-
-                        //登入成功的提示与跳转
-                        layer.msg('登入成功', {
-                            offset: '15px'
-                            , icon: 1
-                            , time: 1000
-                        }, function () {
-                            location.href = '../'; //后台主页
-                        });
+            //自定义验证规则
+            form.verify({
+                username: function (value) {
+                    if (value.length < 6) {
+                        return '用户名不得低于6个字符';
                     }
+                }
+                , pass: [/(.+){6,12}$/, '密码必须6到12位']
+            });
+
+            //监听提交
+            form.on('submit(submit)', function (data) {
+                layer.alert(JSON.stringify(data.field));
+                $.ajax({
+                    url: "@Url.Action("CheckLogin")",
+                    type: "POST",
+                    data: data.field,
+                    datatype: "json",
                 });
-
             });
-
-
-            //实际使用时记得删除该代码
-            layer.msg('为了方便演示，用户名密码可随意输入', {
-                offset: '15px'
-                , icon: 1
-            });
-
         });
     </script>
 </body>

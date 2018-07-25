@@ -71,11 +71,11 @@ F:\GIT\ICPOS\ICPOS.Web\bin\zh-Hans\System.Web.Helpers.resources.dll
 F:\GIT\ICPOS\ICPOS.Web\bin\zh-Hans\System.Web.Mvc.resources.dll
 F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.dll
 F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.pdb
-F:\GIT\ICPOS\ICPOS.Web\bin\Microsoft.Web.Infrastructure.dll
-F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csprojAssemblyReference.cache
-F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csproj.CoreCompileInputs.cache
-F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csproj.CopyComplete
 F:\GIT\ICPOS\ICPOS.Web\bin\ICPOS.Common.dll
 F:\GIT\ICPOS\ICPOS.Web\bin\ICPOS.EntityFramwork.dll
 F:\GIT\ICPOS\ICPOS.Web\bin\ICPOS.Common.pdb
 F:\GIT\ICPOS\ICPOS.Web\bin\ICPOS.EntityFramwork.pdb
+F:\GIT\ICPOS\ICPOS.Web\bin\Microsoft.Web.Infrastructure.dll
+F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csprojAssemblyReference.cache
+F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csproj.CoreCompileInputs.cache
+F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csproj.CopyComplete

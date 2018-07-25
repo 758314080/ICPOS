@@ -24,7 +24,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
 
             // TODO
             //用户信息处理
-            users = new EntityFramwork.BLL.Users().GetModel(1);
+            //users = new EntityFramwork.BLL.Users().GetModel(1);
         }
 
         /// <summary>

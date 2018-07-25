@@ -18,10 +18,16 @@ namespace ICPOS.Web.Areas.Admin.Controllers
 
         #region ajax
         [HttpPost]
-        public ActionResult CheckLogin(string username,string password)
+        public void CheckLogin()
         {
-
-            return RedirectToAction("Index", RouteData.Values);
+            if (string.IsNullOrEmpty(Request["username"].ToString()) &&string.IsNullOrEmpty(Request["password"].ToString()))
+            {
+                string username = Request["username"].ToString();
+                string password = Request["password"].ToString();
+            }
+            else
+            {
+            }  
         }
         #endregion
     }
