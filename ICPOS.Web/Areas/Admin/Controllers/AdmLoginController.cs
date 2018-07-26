@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ICPOS.Common;
+using ICPOS.EntityFramwork.BLL;
 
 namespace ICPOS.Web.Areas.Admin.Controllers
 {
@@ -14,20 +17,28 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             return View();
         }
 
-
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
 
         #region ajax
         [HttpPost]
-        public void CheckLogin()
+        public string Login(string loginname, string password)
         {
-            if (string.IsNullOrEmpty(Request["username"].ToString()) &&string.IsNullOrEmpty(Request["password"].ToString()))
+            string o = null;
+            if (!string.IsNullOrEmpty(loginname) &&!string.IsNullOrEmpty(password))
             {
-                string username = Request["username"].ToString();
-                string password = Request["password"].ToString();
+                string sql = "select Top 1 GUID from Users where LoginName='" + loginname + "' and Password='" + password + "'";
+                DataTable dt = DbHelperSQL.Query(sql).Tables[0];
+                if (dt!=null&&dt.Rows.Count>0)
+                {
+                    Session["UserGUID"] = dt.Rows[0]["GUID"].ToString();
+                    o = dt.Rows[0]["GUID"].ToString();
+                }
             }
-            else
-            {
-            }  
+            return o == null ? "123" : o;
         }
         #endregion
     }

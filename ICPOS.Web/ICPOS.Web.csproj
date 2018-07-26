@@ -212,7 +212,7 @@
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\AdmHome\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\AdmLogin\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdmLogin\Login.cshtml" />
     <None Include="packages.config" />
     <Content Include="Script\layui\font\iconfont.eot" />
     <Content Include="Script\layui\font\iconfont.ttf" />

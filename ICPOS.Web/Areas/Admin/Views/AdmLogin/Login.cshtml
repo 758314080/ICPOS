@@ -22,11 +22,11 @@
                 <h2>layuiAdmin</h2>
                 <p>layui 官方出品的单页面后台管理模板系统</p>
             </div>
-            <form class="layui-form" action="" lay-filter="example">
+            <form class="layui-form" action="" lay-filter="example" method="post">
                 <div class="layui-form-item">
                     <label class="layui-form-label">用户名</label>
                     <div class="layui-input-block">
-                        <input type="text" name="username" lay-verify="username" autocomplete="off" placeholder="请输入用户名" class="layui-input">
+                        <input type="text" name="loginname" lay-verify="loginname" autocomplete="off" placeholder="请输入用户名" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -57,23 +57,26 @@
 
             //自定义验证规则
             form.verify({
-                username: function (value) {
-                    if (value.length < 6) {
+                loginname: function (value) {
+                    if (value.length < 5) {
                         return '用户名不得低于6个字符';
                     }
                 }
                 , pass: [/(.+){6,12}$/, '密码必须6到12位']
             });
 
-            //监听提交
+            //监控提交
             form.on('submit(submit)', function (data) {
-                layer.alert(JSON.stringify(data.field));
                 $.ajax({
-                    url: "@Url.Action("CheckLogin")",
-                    type: "POST",
+                    type: 'Post',
+                    url:'@Url.Action("Login","AdmLogin")',
                     data: data.field,
-                    datatype: "json",
+                    datatype: 'json',
+                    success: function(res){
+                        layer.alert(res);
+                    }
                 });
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
         });
     </script>
