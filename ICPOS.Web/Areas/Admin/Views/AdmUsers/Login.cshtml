@@ -72,8 +72,21 @@
                     url:'@Url.Action("Login","AdmLogin")',
                     data: data.field,
                     datatype: 'json',
-                    success: function(res){
-                        layer.alert(res);
+                    success: function (res) {
+                        var list = JSON.parse(res);
+                        console.log(list);
+                        if (list.Code == 1) {
+                            //登入成功的提示与跳转
+                            layer.msg('登入成功', {
+                                offset: '15px'
+                                , icon: 1
+                                , time: 1000
+                            }, function () {
+                                location.href = '@Url.Action("Index", "AdmHome")'; //后台主页
+                            });
+                        } else {
+                            layer.alert(list.Msg);
+                        }
                     }
                 });
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。

@@ -79,3 +79,5 @@ F:\GIT\ICPOS\ICPOS.Web\bin\Microsoft.Web.Infrastructure.dll
 F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csprojAssemblyReference.cache
 F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csproj.CoreCompileInputs.cache
 F:\GIT\ICPOS\ICPOS.Web\obj\Debug\ICPOS.Web.csproj.CopyComplete
+F:\GIT\ICPOS\ICPOS.Web\bin\Newtonsoft.Json.dll
+F:\GIT\ICPOS\ICPOS.Web\bin\Newtonsoft.Json.xml

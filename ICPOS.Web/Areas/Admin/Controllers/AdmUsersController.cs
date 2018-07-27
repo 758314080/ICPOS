@@ -6,17 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using ICPOS.Common;
 using ICPOS.EntityFramwork.BLL;
+using Newtonsoft.Json;
 
 namespace ICPOS.Web.Areas.Admin.Controllers
 {
-    public class AdmLoginController : Controller
+    public class AdmUsersController : Controller
     {
-        // GET: Admin/AdmLogin
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public ActionResult Login()
         {
@@ -27,7 +22,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
         [HttpPost]
         public string Login(string loginname, string password)
         {
-            string o = null;
+            ResultJson res = new ResultJson();
             if (!string.IsNullOrEmpty(loginname) &&!string.IsNullOrEmpty(password))
             {
                 string sql = "select Top 1 GUID from Users where LoginName='" + loginname + "' and Password='" + password + "'";
@@ -35,10 +30,16 @@ namespace ICPOS.Web.Areas.Admin.Controllers
                 if (dt!=null&&dt.Rows.Count>0)
                 {
                     Session["UserGUID"] = dt.Rows[0]["GUID"].ToString();
-                    o = dt.Rows[0]["GUID"].ToString();
+                    res.Code = 1;
+                    res.Msg = "登录成功";
+                }
+                else
+                {
+                    res.Code = 0;
+                    res.Msg = "账号或密码错误";
                 }
             }
-            return o == null ? "123" : o;
+            return JsonConvert.SerializeObject(res);
         }
         #endregion
     }
