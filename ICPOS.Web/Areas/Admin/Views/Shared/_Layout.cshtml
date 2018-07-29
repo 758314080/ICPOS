@@ -1,7 +1,9 @@
-﻿
+﻿@using ICPOS.EntityFramwork.Model;
+@using System.Text;
+
 @{
     Layout = null;
-
+    IList<Module> menulist = ViewBag.MenuList;
 }
 
 <!DOCTYPE html>
@@ -49,6 +51,28 @@
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
                 <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    @if (menulist != null && menulist.Any())
+                    {
+                        StringBuilder strbd = new StringBuilder();
+                        var first = menulist.Where(a => a.Module_Level == 1);
+                        foreach (var item in first)
+                        {
+                            strbd.Append("<li class=\"layui-nav-item\">");
+                            strbd.AppendFormat("<a class=\"\" href=\"{0}\">{1}</a>", item.Module_TrueUrl, item.Module_Name);
+                            var second = menulist.Where(a => a.Module_Level == 2 && a.Module_Parent == item.Module_ID);
+                            if (second != null && second.Any())
+                            {
+                                strbd.Append("<dl class=\"layui-nav-child\">");
+                                foreach (var item2 in second)
+                                {
+                                    strbd.AppendFormat("<dd><a href=\"{0}\">{1}</a></dd>", item2.Module_TrueUrl, item2.Module_Name);
+                                }
+                                strbd.Append("</dl>");
+                            }
+                            strbd.Append("</li>");
+                        }
+                        @(new MvcHtmlString(strbd.ToString()));
+                    }
                     <li class="layui-nav-item layui-nav-itemed">
                         <a class="" href="javascript:;">所有商品</a>
                         <dl class="layui-nav-child">

@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ICPOS.EntityFramwork.Model;
 
 namespace ICPOS.Web.Areas.Admin.Controllers
 {
@@ -20,10 +21,10 @@ namespace ICPOS.Web.Areas.Admin.Controllers
         public ActionResult GetMenuBar()
         {
             string sql = "select * from Module";
-            DataTable dt = DbHelperSQL.Query(sql).Tables[0];
-            if (dt!=null&&dt.Rows.Count>0)
+            IList<Module> menuList = DbHelperSQL.GetList<Module>(sql);
+            if (menuList!=null)
             {
-                ViewBag.MenuList = dt;
+                ViewBag.MenuList = menuList;
             }
             return View();
         }

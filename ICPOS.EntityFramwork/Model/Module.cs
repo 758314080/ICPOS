@@ -29,9 +29,9 @@ namespace ICPOS.EntityFramwork.Model
 		private int _module_id;
 		private int? _type;
 		private string _module_name;
-		private int? _module_parent;
+		private int _module_parent;
 		private string _module_hierarchy;
-		private int? _module_level;
+		private int _module_level;
 		private int? _module_orderby;
 		private string _moduleicon_url;
 		private string _module_trueurl;
@@ -63,7 +63,7 @@ namespace ICPOS.EntityFramwork.Model
 		/// <summary>
 		/// 父级
 		/// </summary>
-		public int? Module_Parent
+		public int Module_Parent
 		{
 			set{ _module_parent=value;}
 			get{return _module_parent;}
@@ -79,7 +79,7 @@ namespace ICPOS.EntityFramwork.Model
 		/// <summary>
 		/// 等级
 		/// </summary>
-		public int? Module_Level
+		public int Module_Level
 		{
 			set{ _module_level=value;}
 			get{return _module_level;}

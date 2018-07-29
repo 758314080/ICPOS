@@ -69,7 +69,7 @@
             form.on('submit(submit)', function (data) {
                 $.ajax({
                     type: 'Post',
-                    url:'@Url.Action("Login","AdmLogin")',
+                    url:'@Url.Action("Login","AdmUsers")',
                     data: data.field,
                     datatype: 'json',
                     success: function (res) {
