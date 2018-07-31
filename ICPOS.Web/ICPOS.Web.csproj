@@ -217,6 +217,8 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\AdmHome\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdmUsers\Login.cshtml" />
+    <Content Include="Areas\Admin\Views\AdmMenu\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\AdmMenu\MenuList.cshtml" />
     <None Include="packages.config" />
     <Content Include="Script\layui\font\iconfont.eot" />
     <Content Include="Script\layui\font\iconfont.ttf" />
@@ -231,7 +233,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\AdmBase\" />
-    <Folder Include="Areas\Admin\Views\AdmMenu\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>

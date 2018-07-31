@@ -8,21 +8,26 @@ namespace ICPOS.Common
 {
     public class ResultJson
     {
-        private string _data;
+        private string _code;
         private string _msg;
-        private int _code;
+        private string _count;
+        private Object _data;
 
         /// <summary>
         /// 状态
         /// </summary>
-        public int Code { get => _code; set => _code = value; }
+        public string code { get => _code; set => _code = value; }
         /// <summary>
         /// 提示
         /// </summary>
-        public string Msg { get => _msg; set => _msg = value; }
+        public string msg { get => _msg; set => _msg = value; }
+        /// <summary>
+        /// layui.Table数据量
+        /// </summary>
+        public string count { get => _count; set => _count = value; }
         /// <summary>
         /// 数据
         /// </summary>
-        public string Data { get => _data; set => _data = value; }
+        public Object data { get => _data; set => _data = value; }
     }
 }

@@ -23,20 +23,20 @@ namespace ICPOS.Web.Areas.Admin.Controllers
         public string Login(string loginname, string password)
         {
             ResultJson res = new ResultJson();
-            if (!string.IsNullOrEmpty(loginname) &&!string.IsNullOrEmpty(password))
+            if (!string.IsNullOrEmpty(loginname) && !string.IsNullOrEmpty(password))
             {
                 string sql = "select Top 1 GUID from Users where LoginName='" + loginname + "' and Password='" + password + "'";
                 DataTable dt = DbHelperSQL.Query(sql).Tables[0];
-                if (dt!=null&&dt.Rows.Count>0)
+                if (dt != null && dt.Rows.Count > 0)
                 {
                     Session["UserGUID"] = dt.Rows[0]["GUID"].ToString();
-                    res.Code = 1;
-                    res.Msg = "登录成功";
+                    res.code = "0";
+                    res.msg = "登录成功";
                 }
                 else
                 {
-                    res.Code = 0;
-                    res.Msg = "账号或密码错误";
+                    res.code = "1";
+                    res.msg = "账号或密码错误";
                 }
             }
             return JsonConvert.SerializeObject(res);
