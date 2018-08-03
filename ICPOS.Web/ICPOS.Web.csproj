@@ -219,6 +219,9 @@
     <Content Include="Areas\Admin\Views\AdmUsers\Login.cshtml" />
     <Content Include="Areas\Admin\Views\AdmMenu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdmMenu\MenuList.cshtml" />
+    <Content Include="Areas\Admin\Views\AdmMenu\MenuAdd.cshtml" />
+    <Content Include="Areas\Admin\Views\AdmUsers\UsersAdd.cshtml" />
+    <Content Include="Areas\Admin\Views\AdmUsers\UsersList.cshtml" />
     <None Include="packages.config" />
     <Content Include="Script\layui\font\iconfont.eot" />
     <Content Include="Script\layui\font\iconfont.ttf" />
@@ -243,6 +246,10 @@
     <ProjectReference Include="..\ICPOS.EntityFramwork\ICPOS.EntityFramwork.csproj">
       <Project>{AE4A8571-C1A6-4399-B175-15317D61AFAD}</Project>
       <Name>ICPOS.EntityFramwork</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICPOS.Service\ICPOS.Service.csproj">
+      <Project>{c392e8cb-79b0-44aa-bdf8-c92f03036a67}</Project>
+      <Name>ICPOS.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

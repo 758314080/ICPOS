@@ -12,7 +12,8 @@ namespace ICPOS.Web.Areas.Admin.Controllers
     public class AdmBaseController : Controller
     {
         // GET: Admin/AdmBase
-        public Users users;
+        protected Users users;
+        
 
         /// <summary>
         /// 初始化
@@ -34,6 +35,16 @@ namespace ICPOS.Web.Areas.Admin.Controllers
         protected virtual void GetButtons(int parentId)
         {
             
+        }
+
+        /// <summary>
+        /// 获取请求参数
+        /// </summary>
+        /// <param name="key">参数名称</param>
+        /// <returns></returns>
+        protected string GetQuerystring(string key)
+        {
+            return HttpContext.Request[key];
         }
     }
 }

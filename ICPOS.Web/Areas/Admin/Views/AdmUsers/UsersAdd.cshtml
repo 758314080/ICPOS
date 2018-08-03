@@ -1,0 +1,144 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>用户添加</title>
+    <link href="~/Script/layui/css/layui.css" rel="stylesheet" media="all" />
+</head>
+<body>
+    <form class="layui-form" action="" style="padding:20px;">
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录名</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="LoginName" required lay-verify="required" placeholder="请输入登录名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录密码</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="password" name="PassWord" required lay-verify="required" placeholder="请输入登录密码  " autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户角色</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline" lay-filter="UsersRole">
+                    <select name="RoleName">
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户姓名</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="Name" required lay-verify="required" placeholder="请输入姓名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="Phone" required lay-verify="required|phone" placeholder="请输入电话" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">E-mail</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="Email" required lay-verify="required|email" placeholder="请输入E-Mail" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">启用/禁用</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="Status" lay-skin="switch" lay-text="启用|禁用" checked value="1">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+            </div>
+        </div>
+    </form>
+    <script src="~/Script/layui/layui.js"></script>
+    <script type="text/javascript">
+        layui.use(['form'], function () {
+            var $ = layui.jquery, form = layui.form;
+
+            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+
+            //自定义验证规则
+            form.verify({
+                Module_Name: function (value) {
+                    if (value.lenth == 0) {
+                        return '菜单名称不能为空';
+                    }
+                }
+            });
+
+            $(function () {
+                //下拉框赋值
+                var timestanp = Date.parse(new Date()); var sign = "123";
+                var data = {
+                    timestanp,
+                    sign
+                }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetRoleList","AdmUsers")',
+                    data: data,
+                    datatype: 'json',
+                    success: function (res) {
+                        var list = JSON.parse(res);
+                        if (list.code == 0) {
+                            var rolelist = '<option value=""></option>';
+                            for (var i = 0; i < list.data.length; i++) {
+                                rolelist += '<option value="' + list.data[i].Role_ID + '">' + list.data[i].Role_Name + '</option>';
+                            }   
+                            $('select[name=RoleName]').append(rolelist);
+                            form.render('select');
+                        } else {
+                            layer.alert(list.msg);
+                        }
+                    }
+                });
+            });
+
+            form.on('submit(submit)', function (data) {
+                console.log(data);
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Add","AdmUsers")',
+                    data: data.field,
+                    datatype: 'json',
+                    success: function (res) {
+                        var json = JSON.parse(res);
+                        if (json.code == 0) {
+                            parent.layer.msg('添加成功');
+                            parent.layer.close(index);
+                        } else {
+                            parent.layer.msg(json.msg);
+                        }
+                    }
+                });
+                return false;
+            })
+        });
+    </script>
+</body>
+</html>
+

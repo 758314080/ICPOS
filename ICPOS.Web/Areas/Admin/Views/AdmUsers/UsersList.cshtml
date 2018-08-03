@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>菜单列表</title>
+    <title>用户列表</title>
     <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
 </head>
 <body layadmin-themealias="default" style="">
@@ -54,23 +54,22 @@
 
             <div class="layui-card-body">
                 <div class="layui-btn-group demoTable">
-                    <button class="layui-btn" data-type="MenuDelete">删除</button>
-                    <button class="layui-btn" data-type="MenuAdd">添加</button>
+                    <button class="layui-btn" data-type="UsersDel">删除</button>
+                    <button class="layui-btn" data-type="UsersAdd">添加</button>
                 </div>
 
-                <table class="layui-table" lay-data="{width: 892, height:332, url:'@Url.Action("GetMenuList","AdmMenu")', page:true, id:'id'}" lay-filter="demo">
+                <table class="layui-table" lay-data="{width: 892, height:332, url:'@Url.Action("GetUsersList","AdmUsers")', page:true, id:'tabid',width:'100%',text:'查无数据'}" lay-filter="TabUsersList">
                     <thead>
                         <tr>
                             <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-                            <th lay-data="{field:'Module_ID', width:80, sort: true, fixed: true}">ID</th>
-                            <th lay-data="{field:'Module_Name', width:80}">菜单名称</th>
-                            <th lay-data="{field:'Module_Parent', width:80, sort: true}">父类名称</th>
-                            <th lay-data="{field:'Module_Hierarchy', width:80}">城市</th>
-                            <th lay-data="{field:'Module_Level', width:160}">等级</th>
-                            <th lay-data="{field:'Module_OrderBy', width:80, sort: true}">排序</th>
-                            <th lay-data="{field:'ModuleIcon_Url', width:80}">图标</th>
-                            <th lay-data="{field:'Module_TrueUrl', width:135, sort: true}">真实地址</th>
-                            <th lay-data="{field:'Module_VirtualUrl', width:80, sort: true, fixed: 'right'}">虚地址</th>
+                            <th lay-data="{field:'Users_ID', width:80, sort: true, fixed: true}">ID</th>
+                            <th lay-data="{field:'Role_Name', width:200}">用户角色</th>
+                            <th lay-data="{field:'Name', width:200, sort: true}">用户名称</th>
+                            <th lay-data="{field:'Phone', width:160}">联系电话</th>
+                            <th lay-data="{field:'Email', width:200}">邮箱</th>
+                            <th lay-data="{field:'CreateDate', width:250, sort: true}">创建时间</th>
+                            <th lay-data="{field:'Status', width:80}">状态</th>
+                            <th lay-data="{field:'Note', width:300, sort: true}">备注</th>
                             <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
                         </tr>
                     </thead>
@@ -89,19 +88,35 @@
     <script src="~/Script/layui/layui.js"></script>
     <script>
         layui.use(['table', 'layer'], function () {
-            var table = layui.table, layer = layui.layer;
+            var $ = layui.jquery, table = layui.table, layer = layui.layer;
+
             //监听表格复选框选择
             table.on('checkbox(demo)', function (obj) {
                 console.log(obj)
             });
+
             //监听工具条
-            table.on('tool(demo)', function (obj) {
+            table.on('tool(TabUsersList)', function (obj) {
                 var data = obj.data;
                 if (obj.event === 'detail') {
                     layer.msg('ID：' + data.id + ' 的查看操作');
                 } else if (obj.event === 'del') {
-                    layer.confirm('真的删除行么', function (index) {
+                    layer.confirm('确认删除该数据', function (index) {
                         obj.del();
+                        $.ajax({
+                            type: 'post',
+                            url: '@Url.Action("Delete", "AdmUsers")',
+                            data: {Users_ID:obj.data.Users_ID },
+                            datatype: 'json',
+                            success: function (res) {
+                                var json = JSON.parse(res);
+                                if (json.code == 0) {
+                                    layer.msg(json.msg);
+                                } else {
+                                    layer.msg(json.msg)
+                                }
+                            }
+                        });
                         layer.close(index);
                     });
                 } else if (obj.event === 'edit') {
@@ -110,22 +125,25 @@
             });
 
             var $ = layui.$, active = {
-                MenuDelete: function () { //获取选中数据
+                UsersDel: function () { //获取选中数据
                     var checkStatus = table.checkStatus('id')
                         , data = checkStatus.data;
                     layer.alert(JSON.stringify(data));
                 }
-                , MenuAdd: function () { //添加
+                , UsersAdd: function () { //添加
                     //iframe窗
                     layer.open({
                         type: 2,
-                        title: '菜单添加',
+                        title: '用户添加',
                         closeBtn: 1, //不显示关闭按钮
                         shade: [0],
                         area: ['500px', '450px'],
                         offset: 'auto', //弹出位置
                         anim: 2,
-                        content: ['@Url.Action("MenuAdd","AdmMenu")', 'no'], //iframe的url，no代表不显示滚动条
+                        content: ['@Url.Action("UsersAdd","AdmUsers")'], //iframe的url，no代表不显示滚动条
+                        end: function () {
+                            table.reload('tabid');
+                        }
                     });
                 }
             };

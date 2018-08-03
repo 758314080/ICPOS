@@ -68,14 +68,14 @@
             //监控提交
             form.on('submit(submit)', function (data) {
                 $.ajax({
-                    type: 'Post',
+                    type: 'post',
                     url:'@Url.Action("Login","AdmUsers")',
                     data: data.field,
                     datatype: 'json',
                     success: function (res) {
                         var list = JSON.parse(res);
                         console.log(list);
-                        if (list.Code == 0) {
+                        if (list.code == 0) {
                             //登入成功的提示与跳转
                             layer.msg('登入成功', {
                                 offset: '15px'

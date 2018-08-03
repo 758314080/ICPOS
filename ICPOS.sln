@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICPOS.Common", "ICPOS.Commo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICPOS.EntityFramwork", "ICPOS.EntityFramwork\ICPOS.EntityFramwork.csproj", "{AE4A8571-C1A6-4399-B175-15317D61AFAD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ICPOS.Service", "ICPOS.Service\ICPOS.Service.csproj", "{C392E8CB-79B0-44AA-BDF8-C92F03036A67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{AE4A8571-C1A6-4399-B175-15317D61AFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE4A8571-C1A6-4399-B175-15317D61AFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE4A8571-C1A6-4399-B175-15317D61AFAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C392E8CB-79B0-44AA-BDF8-C92F03036A67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C392E8CB-79B0-44AA-BDF8-C92F03036A67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C392E8CB-79B0-44AA-BDF8-C92F03036A67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C392E8CB-79B0-44AA-BDF8-C92F03036A67}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

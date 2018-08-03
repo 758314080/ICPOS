@@ -1,0 +1,6 @@
+F:\GIT\ICPOS\ICPOS.Service\bin\Debug\ICPOS.Service.dll
+F:\GIT\ICPOS\ICPOS.Service\bin\Debug\ICPOS.Service.pdb
+F:\GIT\ICPOS\ICPOS.Service\obj\Debug\ICPOS.Service.csprojAssemblyReference.cache
+F:\GIT\ICPOS\ICPOS.Service\obj\Debug\ICPOS.Service.csproj.CoreCompileInputs.cache
+F:\GIT\ICPOS\ICPOS.Service\obj\Debug\ICPOS.Service.dll
+F:\GIT\ICPOS\ICPOS.Service\obj\Debug\ICPOS.Service.pdb

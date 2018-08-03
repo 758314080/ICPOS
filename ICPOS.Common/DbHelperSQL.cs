@@ -15,9 +15,9 @@ namespace ICPOS.Common
     public abstract class DbHelperSQL
     {
         //数据库连接字符串(web.config来配置)，多数据库可使用DbHelperSQLP来实现.
-        public static string connectionString = ConfigurationManager.ConnectionStrings["sqlservercon"].ConnectionString;  
+        public static string connectionString = ConfigurationManager.ConnectionStrings["sqlservercon"].ConnectionString;
         public DbHelperSQL()
-        {            
+        {
         }
 
         #region 公用方法
@@ -173,8 +173,8 @@ namespace ICPOS.Common
                 }
             }
         }
-      
-        
+
+
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
@@ -390,7 +390,7 @@ namespace ICPOS.Common
             catch (System.Data.SqlClient.SqlException e)
             {
                 throw e;
-            }   
+            }
 
 
         }
@@ -509,8 +509,8 @@ namespace ICPOS.Common
                 }
             }
         }
-        
-       
+
+
         /// <summary>
         /// 执行多条SQL语句，实现数据库事务。
         /// </summary>
@@ -665,10 +665,6 @@ namespace ICPOS.Common
             cmd.CommandType = CommandType.Text;//cmdType;
             if (cmdParms != null)
             {
-
-
-
-
                 foreach (SqlParameter parameter in cmdParms)
                 {
                     if ((parameter.Direction == ParameterDirection.InputOutput || parameter.Direction == ParameterDirection.Input) &&
@@ -702,7 +698,7 @@ namespace ICPOS.Common
             command.CommandType = CommandType.StoredProcedure;
             returnReader = command.ExecuteReader(CommandBehavior.CloseConnection);
             return returnReader;
-            
+
         }
 
 

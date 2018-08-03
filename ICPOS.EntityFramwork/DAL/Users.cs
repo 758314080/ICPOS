@@ -46,9 +46,9 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from Users");
-			strSql.Append(" where Users_ID=SQL2012Users_ID");
+			strSql.Append(" where Users_ID=@Users_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Users_ID", SqlDbType.Int,4)
+					new SqlParameter("@Users_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Users_ID;
 
@@ -65,19 +65,19 @@ namespace ICPOS.EntityFramwork.DAL
 			strSql.Append("insert into Users(");
 			strSql.Append("GUID,Role_ID,LoginName,Password,Name,Phone,Email,CreateDate,Status,Note)");
 			strSql.Append(" values (");
-			strSql.Append("SQL2012GUID,SQL2012Role_ID,SQL2012LoginName,SQL2012Password,SQL2012Name,SQL2012Phone,SQL2012Email,SQL2012CreateDate,SQL2012Status,SQL2012Note)");
+			strSql.Append("@GUID,@Role_ID,@LoginName,@Password,@Name,@Phone,@Email,@CreateDate,@Status,@Note)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012GUID", SqlDbType.VarChar,50),
-					new SqlParameter("SQL2012Role_ID", SqlDbType.Int,4),
-					new SqlParameter("SQL2012LoginName", SqlDbType.VarChar,50),
-					new SqlParameter("SQL2012Password", SqlDbType.VarChar,50),
-					new SqlParameter("SQL2012Name", SqlDbType.NVarChar,50),
-					new SqlParameter("SQL2012Phone", SqlDbType.VarChar,50),
-					new SqlParameter("SQL2012Email", SqlDbType.NVarChar,50),
-					new SqlParameter("SQL2012CreateDate", SqlDbType.DateTime),
-					new SqlParameter("SQL2012Status", SqlDbType.Int,4),
-					new SqlParameter("SQL2012Note", SqlDbType.NVarChar,100)};
+					new SqlParameter("@GUID", SqlDbType.VarChar,50),
+					new SqlParameter("@Role_ID", SqlDbType.Int,4),
+					new SqlParameter("@LoginName", SqlDbType.VarChar,50),
+					new SqlParameter("@Password", SqlDbType.VarChar,50),
+					new SqlParameter("@Name", SqlDbType.NVarChar,50),
+					new SqlParameter("@Phone", SqlDbType.VarChar,50),
+					new SqlParameter("@Email", SqlDbType.NVarChar,50),
+					new SqlParameter("@CreateDate", SqlDbType.DateTime),
+					new SqlParameter("@Status", SqlDbType.Int,4),
+					new SqlParameter("@Note", SqlDbType.NVarChar,100)};
 			parameters[0].Value = model.GUID;
 			parameters[1].Value = model.Role_ID;
 			parameters[2].Value = model.LoginName;
@@ -106,29 +106,29 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update Users set ");
-			strSql.Append("GUID=SQL2012GUID,");
-			strSql.Append("Role_ID=SQL2012Role_ID,");
-			strSql.Append("LoginName=SQL2012LoginName,");
-			strSql.Append("Password=SQL2012Password,");
-			strSql.Append("Name=SQL2012Name,");
-			strSql.Append("Phone=SQL2012Phone,");
-			strSql.Append("Email=SQL2012Email,");
-			strSql.Append("CreateDate=SQL2012CreateDate,");
-			strSql.Append("Status=SQL2012Status,");
-			strSql.Append("Note=SQL2012Note");
-			strSql.Append(" where Users_ID=SQL2012Users_ID");
+			strSql.Append("GUID=@GUID,");
+			strSql.Append("Role_ID=@Role_ID,");
+			strSql.Append("LoginName=@LoginName,");
+			strSql.Append("Password=@Password,");
+			strSql.Append("Name=@Name,");
+			strSql.Append("Phone=@Phone,");
+			strSql.Append("Email=@Email,");
+			strSql.Append("CreateDate=@CreateDate,");
+			strSql.Append("Status=@Status,");
+			strSql.Append("Note=@Note");
+			strSql.Append(" where Users_ID=@Users_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012GUID", SqlDbType.VarChar,50),
-					new SqlParameter("SQL2012Role_ID", SqlDbType.Int,4),
-					new SqlParameter("SQL2012LoginName", SqlDbType.VarChar,50),
-					new SqlParameter("SQL2012Password", SqlDbType.VarChar,50),
-					new SqlParameter("SQL2012Name", SqlDbType.NVarChar,50),
-					new SqlParameter("SQL2012Phone", SqlDbType.VarChar,50),
-					new SqlParameter("SQL2012Email", SqlDbType.NVarChar,50),
-					new SqlParameter("SQL2012CreateDate", SqlDbType.DateTime),
-					new SqlParameter("SQL2012Status", SqlDbType.Int,4),
-					new SqlParameter("SQL2012Note", SqlDbType.NVarChar,100),
-					new SqlParameter("SQL2012Users_ID", SqlDbType.Int,4)};
+					new SqlParameter("@GUID", SqlDbType.VarChar,50),
+					new SqlParameter("@Role_ID", SqlDbType.Int,4),
+					new SqlParameter("@LoginName", SqlDbType.VarChar,50),
+					new SqlParameter("@Password", SqlDbType.VarChar,50),
+					new SqlParameter("@Name", SqlDbType.NVarChar,50),
+					new SqlParameter("@Phone", SqlDbType.VarChar,50),
+					new SqlParameter("@Email", SqlDbType.NVarChar,50),
+					new SqlParameter("@CreateDate", SqlDbType.DateTime),
+					new SqlParameter("@Status", SqlDbType.Int,4),
+					new SqlParameter("@Note", SqlDbType.NVarChar,100),
+					new SqlParameter("@Users_ID", SqlDbType.Int,4)};
 			parameters[0].Value = model.GUID;
 			parameters[1].Value = model.Role_ID;
 			parameters[2].Value = model.LoginName;
@@ -160,9 +160,9 @@ namespace ICPOS.EntityFramwork.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Users ");
-			strSql.Append(" where Users_ID=SQL2012Users_ID");
+			strSql.Append(" where Users_ID=@Users_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Users_ID", SqlDbType.Int,4)
+					new SqlParameter("@Users_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Users_ID;
 
@@ -204,9 +204,9 @@ namespace ICPOS.EntityFramwork.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Users_ID,GUID,Role_ID,LoginName,Password,Name,Phone,Email,CreateDate,Status,Note from Users ");
-			strSql.Append(" where Users_ID=SQL2012Users_ID");
+			strSql.Append(" where Users_ID=@Users_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Users_ID", SqlDbType.Int,4)
+					new SqlParameter("@Users_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Users_ID;
 
@@ -369,13 +369,13 @@ namespace ICPOS.EntityFramwork.DAL
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012tblName", SqlDbType.VarChar, 255),
-					new SqlParameter("SQL2012fldName", SqlDbType.VarChar, 255),
-					new SqlParameter("SQL2012PageSize", SqlDbType.Int),
-					new SqlParameter("SQL2012PageIndex", SqlDbType.Int),
-					new SqlParameter("SQL2012IsReCount", SqlDbType.Bit),
-					new SqlParameter("SQL2012OrderType", SqlDbType.Bit),
-					new SqlParameter("SQL2012strWhere", SqlDbType.VarChar,1000),
+					new SqlParameter("@tblName", SqlDbType.VarChar, 255),
+					new SqlParameter("@fldName", SqlDbType.VarChar, 255),
+					new SqlParameter("@PageSize", SqlDbType.Int),
+					new SqlParameter("@PageIndex", SqlDbType.Int),
+					new SqlParameter("@IsReCount", SqlDbType.Bit),
+					new SqlParameter("@OrderType", SqlDbType.Bit),
+					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
 			parameters[0].Value = "Users";
 			parameters[1].Value = "Users_ID";

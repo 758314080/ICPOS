@@ -29,6 +29,11 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             return View();
         }
 
+        public ActionResult MenuAdd()
+        {
+            return View();
+        }
+
         #region Ajax
         public string GetMenuList()
         {
@@ -47,7 +52,6 @@ namespace ICPOS.Web.Areas.Admin.Controllers
                 res.code = "1";
                 res.msg = "失败";
             }
-            string op = JsonConvert.SerializeObject(res);
             return JsonConvert.SerializeObject(res);
         }
         #endregion

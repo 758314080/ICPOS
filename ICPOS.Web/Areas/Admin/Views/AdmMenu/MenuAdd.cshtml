@@ -1,0 +1,82 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>菜单添加</title>
+    <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">菜单类型</label>
+                    <div class="layui-input-block">
+                        <div class="layui-input-inline">
+                            <select name="Type">
+                                <option value=""></option>
+                                <option value="1">导航栏</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">菜单名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Module_Name" lay-verify="Module_Name" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">所属菜单</label>
+                    <div class="layui-input-block">
+                        <div class="layui-input-inline">
+                            <select name="Module_Parent" lay-verify="">
+                                <option value=""></option>
+                                <option value="0">写作</option>
+                                <option value="1">阅读</option>
+                                <option value="2">游戏</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label">显示顺序</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Module_OrderBy" lay-verify="number" autocomplete="off" placeholder="请输入显示顺序" class="layui-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit="">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="~/Script/layui/layui.js"></script>
+    <script type="text/javascript">
+        layui.use('form', function () {
+            var $ = layui.jquery, form = layui.form;
+
+            //自定义验证规则
+            form.verify({
+                Module_Name: function (value) {
+                    if (value.lenth == 0) {
+                        return '菜单名称不能为空';
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
