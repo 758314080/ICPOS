@@ -121,6 +121,20 @@
                     });
                 } else if (obj.event === 'edit') {
                     layer.alert('编辑行：<br>' + JSON.stringify(data))
+                    $.ajax({
+                            type: 'post',
+                            url: '@Url.Action("UserAdd", "AdmUsers")',
+                            data: {Users_ID:obj.data.Users_ID },
+                            datatype: 'json',
+                            success: function (res) {
+                                var json = JSON.parse(res);
+                                if (json.code == 0) {
+                                    layer.msg(json.msg);
+                                } else {
+                                    layer.msg(json.msg)
+                                }
+                            }
+                        });
                 }
             });
 

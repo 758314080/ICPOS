@@ -24,10 +24,21 @@ namespace ICPOS.Web.Areas.Admin.Controllers
 
         public ActionResult UsersAdd()
         {
+            if (GetQuerystring("Users_ID")!=null)
+            {
+                int userid = int.Parse(GetQuerystring("Users_ID"));
+                if (new ICPOS.EntityFramwork.BLL.Users().Exists(userid))
+                {
+                    ICPOS.EntityFramwork.Model.Users MUsers = new ICPOS.EntityFramwork.BLL.Users().GetModel(userid);
+                    ViewBag.UsersMod = MUsers;
+                }
+            }
             return View();
         }
 
         #region ajax
+
+        #region Login
         [HttpPost]
         //登录校验
         public string Login(string loginname, string password)
@@ -51,7 +62,9 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             }
             return JsonConvert.SerializeObject(res);
         }
+        #endregion
 
+        #region UserList
         //获取用户列表
         public string GetUsersList()
         {
@@ -73,6 +86,44 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             return JsonConvert.SerializeObject(res);
         }
 
+
+        [HttpPost]
+        public string Delete()
+        {
+            ResultJson res = new ResultJson();
+            if (!string.IsNullOrEmpty(GetQuerystring("Users_ID")))
+            {
+                int userid = int.Parse(GetQuerystring("Users_ID"));
+                if (new ICPOS.EntityFramwork.BLL.Users().Exists(userid))
+                {
+                    bool check = new ICPOS.EntityFramwork.BLL.Users().Delete(userid);
+                    if (check)
+                    {
+                        res.code = "0";
+                        res.msg = "删除成功";
+                    }
+                    else
+                    {
+                        res.code = "-1";
+                        res.msg = "请稍后重试";
+                    }
+                }
+                else
+                {
+                    res.code = "2";
+                    res.msg = "已删除";
+                }
+            }
+            else
+            {
+                res.code = "1";
+                res.msg = "参数有误";
+            }
+            return JsonConvert.SerializeObject(res);
+        }
+        #endregion
+
+        #region UserAdd
         //获取用户角色列表
         public string GetRoleList()
         {
@@ -128,41 +179,8 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             }
             return JsonConvert.SerializeObject(res);
         }
+        #endregion
 
-        [HttpPost]
-        public string Delete()
-        {
-            ResultJson res = new ResultJson();
-            if (!string.IsNullOrEmpty(GetQuerystring("Users_ID")))
-            {
-                int userid = int.Parse(GetQuerystring("Users_ID"));
-                if (new ICPOS.EntityFramwork.BLL.Users().Exists(userid))
-                {
-                    bool check = new ICPOS.EntityFramwork.BLL.Users().Delete(userid);
-                    if (check)
-                    {
-                        res.code = "0";
-                        res.msg = "删除成功";
-                    }
-                    else
-                    {
-                        res.code = "-1";
-                        res.msg = "请稍后重试";
-                    }
-                }
-                else
-                {
-                    res.code = "2";
-                    res.msg = "已删除";
-                }
-            }
-            else
-            {
-                res.code = "1";
-                res.msg = "参数有误";
-            }
-            return JsonConvert.SerializeObject(res);
-        }
         #endregion
     }
 }
