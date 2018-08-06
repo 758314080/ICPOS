@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2018/7/24 15:38:17   N/A    初版
+* V0.01  2018/8/6 16:00:00   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -63,12 +63,11 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("insert into Users(");
-			strSql.Append("GUID,Role_ID,LoginName,Password,Name,Phone,Email,CreateDate,Status,Note)");
+			strSql.Append("Role_ID,LoginName,Password,Name,Phone,Email,CreateDate,Status,Note)");
 			strSql.Append(" values (");
-			strSql.Append("@GUID,@Role_ID,@LoginName,@Password,@Name,@Phone,@Email,@CreateDate,@Status,@Note)");
+			strSql.Append("@Role_ID,@LoginName,@Password,@Name,@Phone,@Email,@CreateDate,@Status,@Note)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("@GUID", SqlDbType.VarChar,50),
 					new SqlParameter("@Role_ID", SqlDbType.Int,4),
 					new SqlParameter("@LoginName", SqlDbType.VarChar,50),
 					new SqlParameter("@Password", SqlDbType.VarChar,50),
@@ -76,18 +75,17 @@ namespace ICPOS.EntityFramwork.DAL
 					new SqlParameter("@Phone", SqlDbType.VarChar,50),
 					new SqlParameter("@Email", SqlDbType.NVarChar,50),
 					new SqlParameter("@CreateDate", SqlDbType.DateTime),
-					new SqlParameter("@Status", SqlDbType.Int,4),
+					new SqlParameter("@Status", SqlDbType.Bit,1),
 					new SqlParameter("@Note", SqlDbType.NVarChar,100)};
-			parameters[0].Value = model.GUID;
-			parameters[1].Value = model.Role_ID;
-			parameters[2].Value = model.LoginName;
-			parameters[3].Value = model.Password;
-			parameters[4].Value = model.Name;
-			parameters[5].Value = model.Phone;
-			parameters[6].Value = model.Email;
-			parameters[7].Value = model.CreateDate;
-			parameters[8].Value = model.Status;
-			parameters[9].Value = model.Note;
+			parameters[0].Value = model.Role_ID;
+			parameters[1].Value = model.LoginName;
+			parameters[2].Value = model.Password;
+			parameters[3].Value = model.Name;
+			parameters[4].Value = model.Phone;
+			parameters[5].Value = model.Email;
+			parameters[6].Value = model.CreateDate;
+			parameters[7].Value = model.Status;
+			parameters[8].Value = model.Note;
 
 			object obj = DbHelperSQL.GetSingle(strSql.ToString(),parameters);
 			if (obj == null)
@@ -106,7 +104,6 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update Users set ");
-			strSql.Append("GUID=@GUID,");
 			strSql.Append("Role_ID=@Role_ID,");
 			strSql.Append("LoginName=@LoginName,");
 			strSql.Append("Password=@Password,");
@@ -116,7 +113,7 @@ namespace ICPOS.EntityFramwork.DAL
 			strSql.Append("CreateDate=@CreateDate,");
 			strSql.Append("Status=@Status,");
 			strSql.Append("Note=@Note");
-			strSql.Append(" where Users_ID=@Users_ID");
+			strSql.Append(" where GUID=@GUID");
 			SqlParameter[] parameters = {
 					new SqlParameter("@GUID", SqlDbType.VarChar,50),
 					new SqlParameter("@Role_ID", SqlDbType.Int,4),
@@ -126,9 +123,8 @@ namespace ICPOS.EntityFramwork.DAL
 					new SqlParameter("@Phone", SqlDbType.VarChar,50),
 					new SqlParameter("@Email", SqlDbType.NVarChar,50),
 					new SqlParameter("@CreateDate", SqlDbType.DateTime),
-					new SqlParameter("@Status", SqlDbType.Int,4),
-					new SqlParameter("@Note", SqlDbType.NVarChar,100),
-					new SqlParameter("@Users_ID", SqlDbType.Int,4)};
+					new SqlParameter("@Status", SqlDbType.Bit,1),
+					new SqlParameter("@Note", SqlDbType.NVarChar,100)};
 			parameters[0].Value = model.GUID;
 			parameters[1].Value = model.Role_ID;
 			parameters[2].Value = model.LoginName;
@@ -139,7 +135,6 @@ namespace ICPOS.EntityFramwork.DAL
 			parameters[7].Value = model.CreateDate;
 			parameters[8].Value = model.Status;
 			parameters[9].Value = model.Note;
-			parameters[10].Value = model.Users_ID;
 
 			int rows=DbHelperSQL.ExecuteSql(strSql.ToString(),parameters);
 			if (rows > 0)
@@ -269,7 +264,14 @@ namespace ICPOS.EntityFramwork.DAL
 				}
 				if(row["Status"]!=null && row["Status"].ToString()!="")
 				{
-					model.Status=int.Parse(row["Status"].ToString());
+					if((row["Status"].ToString()=="1")||(row["Status"].ToString().ToLower()=="true"))
+					{
+						model.Status=true;
+					}
+					else
+					{
+						model.Status=false;
+					}
 				}
 				if(row["Note"]!=null)
 				{

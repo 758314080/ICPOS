@@ -121,6 +121,19 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             }
             return JsonConvert.SerializeObject(res);
         }
+
+        //修改状态(启用/禁用)
+        [HttpPost]
+        public string UpdStadus()
+        {
+            if (!string.IsNullOrEmpty(GetQuerystring("Users_ID")))
+            {
+                string status = GetQuerystring("Users_ID");
+                ICPOS.EntityFramwork.Model.Users MUsers = new EntityFramwork.Model.Users();
+                MUsers.Status = bool.Parse(status);
+            }
+            return ResultJson.GetJson();
+        }
         #endregion
 
         #region UserAdd
@@ -145,6 +158,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             return JsonConvert.SerializeObject(res);
         }
 
+        //添加或修改
         [HttpPost]
         public string Add()
         {
@@ -159,17 +173,35 @@ namespace ICPOS.Web.Areas.Admin.Controllers
                 MUsers.Name = GetQuerystring("Name");
                 MUsers.Phone = GetQuerystring("Phone");
                 MUsers.Email = GetQuerystring("Email");
-                MUsers.Status = GetQuerystring("Status") == null ? 0 : int.Parse(GetQuerystring("Status"));
-                int check = new ICPOS.EntityFramwork.BLL.Users().Add(MUsers);
-                if (check > 0)
+                MUsers.Status = GetQuerystring("Status") == null ? false : true;
+                if (!string.IsNullOrEmpty(GetQuerystring("GUID")))
                 {
-                    res.code = "0";
-                    res.msg = "添加成功";
+                    MUsers.GUID = GetQuerystring("GUID");
+                    bool check = new ICPOS.EntityFramwork.BLL.Users().Update(MUsers);
+                    if (check)
+                    {
+                        res.code = "0";
+                        res.msg = "修改成功";
+                    }
+                    else
+                    {
+                        res.code = "-1";
+                        res.msg = "请稍后重试";
+                    }
                 }
                 else
                 {
-                    res.code = "-1";
-                    res.msg = "请稍后重试";
+                    int check = new ICPOS.EntityFramwork.BLL.Users().Add(MUsers);
+                    if (check > 0)
+                    {
+                        res.code = "0";
+                        res.msg = "添加成功";
+                    }
+                    else
+                    {
+                        res.code = "-1";
+                        res.msg = "请稍后重试";
+                    }
                 }
             }
             else

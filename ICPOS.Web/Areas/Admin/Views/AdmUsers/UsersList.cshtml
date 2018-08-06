@@ -58,27 +58,30 @@
                     <button class="layui-btn" data-type="UsersAdd">添加</button>
                 </div>
 
-                <table class="layui-table" lay-data="{width: 892, height:332, url:'@Url.Action("GetUsersList","AdmUsers")', page:true, id:'tabid',width:'100%',text:'查无数据'}" lay-filter="TabUsersList">
+                <table class="layui-table" lay-data="{width: 892, height:332, url:'@Url.Action("GetUsersList","AdmUsers")', page:true, id:'tabid',width:'100%',height:'500',text:'查无数据'}" lay-filter="TabUsersList">
                     <thead>
                         <tr>
                             <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-                            <th lay-data="{field:'Users_ID', width:80, sort: true, fixed: true}">ID</th>
+                            <th lay-data="{field:'Users_ID', width:80,  fixed: true}">ID</th>
                             <th lay-data="{field:'Role_Name', width:200}">用户角色</th>
-                            <th lay-data="{field:'Name', width:200, sort: true}">用户名称</th>
+                            <th lay-data="{field:'Name', width:200}">用户名称</th>
                             <th lay-data="{field:'Phone', width:160}">联系电话</th>
                             <th lay-data="{field:'Email', width:200}">邮箱</th>
-                            <th lay-data="{field:'CreateDate', width:250, sort: true}">创建时间</th>
-                            <th lay-data="{field:'Status', width:80}">状态</th>
-                            <th lay-data="{field:'Note', width:300, sort: true}">备注</th>
-                            <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
+                            <th lay-data="{field:'CreateDate', width:250}">创建时间</th>
+                            <th lay-data="{field:'Status', width:90,templet: '#status', unresize: true}">状态</th>
+                            <th lay-data="{field:'Note', width:300}">备注</th>
+                            <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#toolbar'}"></th>
                         </tr>
                     </thead>
                 </table>
 
-                <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+                <script type="text/html" id="toolbar">
                     <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                </script>
+
+                <script type="text/html" id="status">
+                    <input type="checkbox" name="status" lay-skin="switch" lay-text="启用|禁用" lay-filter="status_filter" {{ d.Status == true ? 'checked' : '' }}>
                 </script>
 
             </div>
@@ -120,21 +123,21 @@
                         layer.close(index);
                     });
                 } else if (obj.event === 'edit') {
-                    layer.alert('编辑行：<br>' + JSON.stringify(data))
-                    $.ajax({
-                            type: 'post',
-                            url: '@Url.Action("UserAdd", "AdmUsers")',
-                            data: {Users_ID:obj.data.Users_ID },
-                            datatype: 'json',
-                            success: function (res) {
-                                var json = JSON.parse(res);
-                                if (json.code == 0) {
-                                    layer.msg(json.msg);
-                                } else {
-                                    layer.msg(json.msg)
-                                }
-                            }
-                        });
+                    //layer.alert('编辑行：<br>' + JSON.stringify(data))
+                    //iframe窗
+                    layer.open({
+                        type: 2,
+                        title: '用户修改',
+                        closeBtn: 1, //不显示关闭按钮
+                        shade: [0],
+                        area: ['500px', '450px'],
+                        offset: 'auto', //弹出位置
+                        anim: 2,
+                        content: ['@Url.Action("UsersAdd","AdmUsers")' + '?Users_ID=' + data.Users_ID ], //iframe的url，no代表不显示滚动条
+                        end: function () {
+                            table.reload('tabid');
+                        }
+                    });
                 }
             });
 
@@ -165,6 +168,25 @@
             $('.demoTable .layui-btn').on('click', function () {
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
+            });
+
+            //监听性别操作
+            form.on('switch(status_filter)', function (obj) {
+                layer.alert(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("UpdStadus", "AdmUsers")?Users_ID=' + this.value,
+                    data: { Users_ID: obj.data.Users_ID },
+                    datatype: 'json',
+                    success: function (res) {
+                        var json = JSON.parse(res);
+                        if (json.code == 0) {
+                            layer.msg(json.msg);
+                        } else {
+                            layer.msg(json.msg)
+                        }
+                    }
+                });
             });
         });
     </script>

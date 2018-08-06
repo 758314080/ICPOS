@@ -1,1 +1,5 @@
 .vs
+/WebApplication1/obj/Release/WebApplication1.csprojAssemblyReference.cache
+/ICPOS.Web/obj/Release/ICPOS.Web.csprojAssemblyReference.cache
+/ICPOS.Service/obj/Release/ICPOS.Service.csprojAssemblyReference.cache
+/ICPOS.Service/obj/Release/ICPOS.Service.csproj.CoreCompileInputs.cache

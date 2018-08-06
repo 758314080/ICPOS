@@ -6,7 +6,7 @@
 *
 * Ver    变更日期             负责人  变更内容
 * ───────────────────────────────────
-* V0.01  2018/7/24 15:38:17   N/A    初版
+* V0.01  2018/8/6 16:00:00   N/A    初版
 *
 * Copyright (c) 2012 Maticsoft Corporation. All rights reserved.
 *┌──────────────────────────────────┐
@@ -86,7 +86,7 @@ namespace ICPOS.EntityFramwork.BLL
 			
 			return dal.GetModel(Users_ID);
 		}
-
+		
 		/// <summary>
 		/// 获得数据列表
 		/// </summary>

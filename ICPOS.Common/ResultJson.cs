@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ICPOS.Common
 {
     public class ResultJson
     {
-        private string _code;
-        private string _msg;
-        private string _count;
-        private Object _data;
+        private static string _code;
+        private static string _msg;
+        private static string _count;
+        private static Object _data;
 
         /// <summary>
         /// 状态
@@ -29,5 +30,10 @@ namespace ICPOS.Common
         /// 数据
         /// </summary>
         public Object data { get => _data; set => _data = value; }
+
+        public static string GetJson()
+        {
+            return JsonConvert.SerializeObject(new ResultJson());
+        }
     }
 }

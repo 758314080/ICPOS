@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    ICPOS.EntityFramwork.Model.Users MUsers = ViewBag.UsersMod == null ? new ICPOS.EntityFramwork.Model.Users() : ViewBag.UsersMod;
 }
 
 <!DOCTYPE html>
@@ -12,12 +13,13 @@
     <link href="~/Script/layui/css/layui.css" rel="stylesheet" media="all" />
 </head>
 <body>
-    <form class="layui-form" action="" style="padding:20px;">
+    <form class="layui-form" action="" style="padding:20px;" lay-filter="userform">
         <div class="layui-form-item">
             <label class="layui-form-label">登录名</label>
             <div class="layui-input-block">
                 <div class="layui-input-inline">
                     <input type="text" name="LoginName" required lay-verify="required" placeholder="请输入登录名" autocomplete="off" class="layui-input">
+                    <input type="text" name="GUID" class="layui-input" style="display:none;" />
                 </div>
             </div>
         </div>
@@ -33,8 +35,7 @@
             <label class="layui-form-label">用户角色</label>
             <div class="layui-input-block">
                 <div class="layui-input-inline" lay-filter="UsersRole">
-                    <select name="RoleName">
-                    </select>
+                    <select name="RoleName"></select>
                 </div>
             </div>
         </div>
@@ -65,7 +66,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">启用/禁用</label>
             <div class="layui-input-block">
-                <input type="checkbox" name="Status" lay-skin="switch" lay-text="启用|禁用" checked value="1">
+                <input type="checkbox" name="Status" lay-skin="switch" lay-text="启用|禁用">
             </div>
         </div>
         <div class="layui-form-item">
@@ -108,10 +109,23 @@
                             var rolelist = '<option value=""></option>';
                             for (var i = 0; i < list.data.length; i++) {
                                 rolelist += '<option value="' + list.data[i].Role_ID + '">' + list.data[i].Role_Name + '</option>';
-                            }   
+                            }
                             $('select[name=RoleName]').append(rolelist);
                             form.render('select');
-                        } else {
+
+                            //表单初始化
+                            form.val('userform', {
+                                "LoginName": '@MUsers.LoginName' // 登录名
+                                , "PassWord": '@MUsers.Password'//密码
+                                , "GUID": '@MUsers.GUID'//GUID
+                                , "RoleName": '@MUsers.Role_ID' //角色
+                                , "Name": '@MUsers.Name' //姓名
+                                , "Phone": '@MUsers.Phone' //电话
+                                , "Email": '@MUsers.Email' //邮件
+                                , "Status": @MUsers.Status.ToString().ToLower() //开关状态
+                            });
+                        }
+                        else {
                             layer.alert(list.msg);
                         }
                     }
@@ -119,10 +133,9 @@
             });
 
             form.on('submit(submit)', function (data) {
-                console.log(data);
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("Add","AdmUsers")',
+                    url: '@Url.Action("Add", "AdmUsers")',
                     data: data.field,
                     datatype: 'json',
                     success: function (res) {
@@ -130,13 +143,14 @@
                         if (json.code == 0) {
                             parent.layer.msg('添加成功');
                             parent.layer.close(index);
-                        } else {
+                        }
+                        else {
                             parent.layer.msg(json.msg);
                         }
                     }
                 });
                 return false;
-            })
+            });
         });
     </script>
 </body>

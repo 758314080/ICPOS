@@ -14,7 +14,7 @@ namespace ICPOS.Service.Dto
         private string _Phone;
         private string _Email;
         private DateTime _CreateDate;
-        private int _Status;
+        private bool _Status;
         private string _Note;
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace ICPOS.Service.Dto
         /// <summary>
         /// 启用/禁用
         /// </summary>
-        public int Status { get => _Status; set => _Status = value; }
+        public bool Status { get => _Status; set => _Status = value; }
         /// <summary>
         /// 备注
         /// </summary>
