@@ -16,3 +16,5 @@ F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.csproj.CoreComp
 F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.csproj.CopyComplete
 F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.dll
 F:\GIT\ICPOS\ICPOS.EntityFramwork\obj\Debug\ICPOS.EntityFramwork.pdb
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\Newtonsoft.Json.dll
+F:\GIT\ICPOS\ICPOS.EntityFramwork\bin\Debug\Newtonsoft.Json.xml

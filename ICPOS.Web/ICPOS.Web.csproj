@@ -93,8 +93,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Script\layuiadmin\admin.css" />
-    <Content Include="Script\layuiadmin\login.css" />
     <Content Include="Script\layui\css\layui.css" />
     <Content Include="Script\layui\css\layui.mobile.css" />
     <Content Include="Script\layui\css\modules\code.css" />
