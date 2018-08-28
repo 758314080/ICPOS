@@ -15,12 +15,6 @@ namespace ICPOS.Web.Areas.Admin.Controllers
         // GET: Admin/AdmMenu
         public ActionResult Index()
         {
-            string sql = "select * from Module";
-            IList<Module> menuList = DbHelperSQL.GetList<Module>(sql);
-            if (menuList != null)
-            {
-                ViewBag.MenuList = menuList;
-            }
             return View() ;
         }
 
@@ -35,6 +29,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
         }
 
         #region Ajax
+        //获取菜单列表
         public string GetMenuList()
         {
             ResultJson res = new ResultJson();
@@ -44,7 +39,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             {
                 res.code = "0";
                 res.msg = "成功";
-                res.count = "10";
+                res.count = menuList.Count.ToString();
                 res.data = menuList;
             }
             else
@@ -54,6 +49,30 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             }
             return JsonConvert.SerializeObject(res);
         }
+
+        #region 获取导航栏
+        [HttpPost]
+        public string GetNavigationMenu()
+        {
+            string roleid = Session["Role_ID"].ToString();
+            ResultJson res = new ResultJson();
+            string sql = "select m.* from Authorized a left join Module m on a.Module_ID=m.Module_ID where Role_ID='" + roleid + "'";
+            IList<Module> modules = DbHelperSQL.GetList<Module>(sql);
+            if (modules!=null)
+            {
+                res.code = "0";
+                res.msg = "成功";
+                res.count = modules.Count.ToString();
+                res.data = modules;
+            }
+            else
+            {
+                res.code = "1";
+                res.msg = "失败";
+            }
+            return JsonConvert.SerializeObject(res);
+        }
+        #endregion
         #endregion
     }
 }

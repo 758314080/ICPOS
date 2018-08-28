@@ -46,11 +46,12 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             ResultJson res = new ResultJson();
             if (!string.IsNullOrEmpty(loginname) && !string.IsNullOrEmpty(password))
             {
-                string sql = "select Top 1 GUID from Users where LoginName='" + loginname + "' and Password='" + password + "'";
+                string sql = "select Top 1 GUID,Role_ID from Users where LoginName='" + loginname + "' and Password='" + password + "'";
                 DataTable dt = DbHelperSQL.Query(sql).Tables[0];
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     Session["UserGUID"] = dt.Rows[0]["GUID"].ToString();
+                    Session["Role_ID"] = dt.Rows[0]["Role_ID"].ToString();
                     res.code = "0";
                     res.msg = "登录成功";
                 }
