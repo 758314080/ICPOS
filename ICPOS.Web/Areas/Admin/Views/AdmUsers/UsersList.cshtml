@@ -68,7 +68,7 @@
                             <th lay-data="{field:'Phone', width:160}">联系电话</th>
                             <th lay-data="{field:'Email', width:200}">邮箱</th>
                             <th lay-data="{field:'CreateDate', width:250}">创建时间</th>
-                            <th lay-data="{field:'Status', width:90,templet: '#status', unresize: true}">状态</th>
+                            <th lay-data="{field:'Status', width:90,templet: '#status',event: 'status', unresize: true}">状态</th>
                             <th lay-data="{field:'Note', width:300}">备注</th>
                             <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#toolbar'}"></th>
                         </tr>
@@ -101,15 +101,13 @@
             //监听工具条
             table.on('tool(TabUsersList)', function (obj) {
                 var data = obj.data;
-                if (obj.event === 'detail') {
-                    layer.msg('ID：' + data.id + ' 的查看操作');
-                } else if (obj.event === 'del') {
+                if (obj.event == 'del') {
                     layer.confirm('确认删除该数据', function (index) {
                         obj.del();
                         $.ajax({
                             type: 'post',
                             url: '@Url.Action("Delete", "AdmUsers")',
-                            data: {Users_ID:obj.data.Users_ID },
+                            data: { Users_ID: data.Users_ID },
                             datatype: 'json',
                             success: function (res) {
                                 var json = JSON.parse(res);
@@ -122,8 +120,7 @@
                         });
                         layer.close(index);
                     });
-                } else if (obj.event === 'edit') {
-                    //layer.alert('编辑行：<br>' + JSON.stringify(data))
+                } else if (obj.event == 'edit') {
                     //iframe窗
                     layer.open({
                         type: 2,
@@ -138,6 +135,24 @@
                             table.reload('tabid');
                         }
                     });
+                } else if (obj.event == 'status') {
+                    console.log(data);
+                    $.ajax({
+                        type: 'post',
+                        url: '@Url.Action("UpdStadus", "AdmUsers")',
+                        data: { Users_ID: data.Users_ID, Status: data.Status },
+                        datatype: 'json',
+                        success: function (res) {
+                            var json = JSON.parse(res);
+                            if (json.code == 0) {
+                                layer.msg(json.msg);
+                                table.reload('tabid');
+                            } else {
+                                layer.msg(json.msg)
+                            }
+                        }
+                    });
+
                 }
             });
 
@@ -168,25 +183,6 @@
             $('.demoTable .layui-btn').on('click', function () {
                 var type = $(this).data('type');
                 active[type] ? active[type].call(this) : '';
-            });
-
-            //监听性别操作
-            form.on('switch(status_filter)', function (obj) {
-                layer.alert(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
-                $.ajax({
-                    type: 'post',
-                    url: '@Url.Action("UpdStadus", "AdmUsers")?Users_ID=' + this.value,
-                    data: { Users_ID: obj.data.Users_ID },
-                    datatype: 'json',
-                    success: function (res) {
-                        var json = JSON.parse(res);
-                        if (json.code == 0) {
-                            layer.msg(json.msg);
-                        } else {
-                            layer.msg(json.msg)
-                        }
-                    }
-                });
             });
         });
     </script>

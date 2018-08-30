@@ -50,7 +50,7 @@
         <div class="layui-side layui-bg-black">
             <div class="layui-side-scroll">
                 <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
-                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <ul class="layui-nav layui-nav-tree" lay-filter="dao_hang_lan">
                     @if (menulist != null && menulist.Any())
                     {
                         StringBuilder strbd = new StringBuilder();
@@ -96,7 +96,7 @@
                 </div>
             </div>
             @RenderBody();
-            
+
         </div>
 
         <div class="layui-footer">
@@ -108,61 +108,12 @@
     <script>
         //JavaScript代码区域
         layui.use('element', function () {
-            var $=layui.jquery,element = layui.element;
+            var $ = layui.jquery
+                , element = layui.element;
 
-            $(function () {
-                //初始化导航栏
-                var timestanp = Date.parse(new Date()); var sign = "123";
-                var data = {
-                    timestanp,
-                    sign
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("GetNavigationMenu", "AdmMenu")',
-                    data: data,
-                    datatype: 'json',
-                    success: function (res) {
-                        var list = JSON.parse(res);
-                        if (list.code == 0) {
-                            var data = list.data;
-                            if (data.length > 0) {
-                                var html = "<li class=\"layui-nav-item\">";
-                                var first = data.find("Module_Parent=0");
-                            }
-                        }
-                        else {
-                            layer.alert(list.msg);
-                        }
-                    }
-                });
-            });
-
-
-
-
-
-            var active = {
-                tabAdd: function () {
-                    //新增一个Tab项
-                    element.tabAdd('demo', {
-                        title: '新选项' + (Math.random() * 1000 | 0) //用于演示
-                        , content: '内容' + (Math.random() * 1000 | 0)
-                        , id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
-                    })
-                }
-                , tabDelete: function (othis) {
-                    //删除指定Tab项
-                    element.tabDelete('demo', '44'); //删除：“商品管理”
-
-
-                    othis.addClass('layui-btn-disabled');
-                }
-                , tabChange: function () {
-                    //切换到指定Tab项
-                    element.tabChange('demo', '22'); //切换到：用户管理
-                }
-            };
+            element.on('nav(dao_hang_lan)', function (data) {
+                console.log(data);
+            })
         });
     </script>
 </body>

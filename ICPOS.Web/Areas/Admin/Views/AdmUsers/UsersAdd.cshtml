@@ -141,7 +141,7 @@
                     success: function (res) {
                         var json = JSON.parse(res);
                         if (json.code == 0) {
-                            parent.layer.msg('添加成功');
+                            parent.layer.msg(json.msg);
                             parent.layer.close(index);
                         }
                         else {

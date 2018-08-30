@@ -66,7 +66,8 @@ namespace ICPOS.Web.Areas.Admin.Controllers
         #endregion
 
         #region UserList
-        //获取用户列表
+
+        #region 获取用户列表
         public string GetUsersList()
         {
             ResultJson res = new ResultJson();
@@ -86,8 +87,9 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             }
             return JsonConvert.SerializeObject(res);
         }
+        #endregion
 
-
+        #region 用户删除
         [HttpPost]
         public string Delete()
         {
@@ -122,19 +124,34 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             }
             return JsonConvert.SerializeObject(res);
         }
+        #endregion
 
-        //修改状态(启用/禁用)
+        #region 修改状态(启用/禁用)
         [HttpPost]
         public string UpdStadus()
         {
             if (!string.IsNullOrEmpty(GetQuerystring("Users_ID")))
             {
-                string status = GetQuerystring("Users_ID");
-                ICPOS.EntityFramwork.Model.Users MUsers = new EntityFramwork.Model.Users();
-                MUsers.Status = bool.Parse(status);
+                ResultJson res = new ResultJson();
+                int userid = int.Parse(GetQuerystring("Users_ID"));
+                string status = GetQuerystring("Status");
+                ICPOS.EntityFramwork.Model.Users MUsers = new EntityFramwork.BLL.Users().GetModel(userid);
+                MUsers.Status = !bool.Parse(status);
+                if (new EntityFramwork.BLL.Users().Update(MUsers))
+                {
+                    res.code = "0";
+                    res.msg = MUsers.Status == true ? "启用成功" : "禁用成功";
+                }
+                else
+                {
+                    res.code = "1";
+                    res.msg = "失败,请稍后重试!";
+                }
             }
             return ResultJson.GetJson();
         }
+        #endregion
+
         #endregion
 
         #region UserAdd

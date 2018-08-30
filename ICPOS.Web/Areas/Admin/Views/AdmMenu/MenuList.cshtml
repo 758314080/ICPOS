@@ -12,129 +12,80 @@
     <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
 </head>
 <body layadmin-themealias="default" style="">
-    <div class="layui-fluid">
-        <div class="layui-card">
-            <div class="layui-form layui-card-header ">
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">ID</label>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md6 layui-col-md-offset1">
+                <fieldset class="layui-elem-field layui-field-title"><legend>权限树扩展分享</legend></fieldset>
+                <!-- 此扩展能递归渲染一个权限树，点击深层次节点，父级节点中没有被选中的节点会被自动选中，单独点击父节点，子节点会全部 选中/去选中 -->
+                <form class="layui-form">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">角色名称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <input class="layui-input" type="text" name="name" placeholder="请输入角色名称" />
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">用户名</label>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">选择权限</label>
                         <div class="layui-input-block">
-                            <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <div id="LAY-auth-tree-index"></div>
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">邮箱</label>
+                    <div class="layui-form-item">
                         <div class="layui-input-block">
-                            <input type="text" name="email" placeholder="请输入" autocomplete="off" class="layui-input">
+                            <button class="layui-btn" type="submit" lay-submit lay-filter="LAY-auth-tree-submit">提交</button>
+                            <button class="layui-btn layui-btn-primary" type="reset">重置</button>
                         </div>
                     </div>
-                    <div class="layui-inline">
-                        <label class="layui-form-label">性别</label>
-                        <div class="layui-input-block">
-                            <select name="sex">
-                                <option value="0">不限</option>
-                                <option value="1">男</option>
-                                <option value="2">女</option>
-                            </select><div class="layui-unselect layui-form-select"><div class="layui-select-title"><input type="text" placeholder="请选择" value="不限" readonly="" class="layui-input layui-unselect"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="0" class="layui-this">不限</dd><dd lay-value="1" class="">男</dd><dd lay-value="2" class="">女</dd></dl></div>
-                        </div>
-                    </div>
-                    <div class="layui-inline">
-                        <button class="layui-btn " lay-submit="" lay-filter="condition-query">
-                            <i class="layui-icon layui-icon-search "></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="layui-card-body">
-                <div class="layui-btn-group demoTable">
-                    <button class="layui-btn" data-type="MenuDelete">删除</button>
-                    <button class="layui-btn" data-type="MenuAdd">添加</button>
-                </div>
-
-                <table class="layui-table" lay-data="{width: 892, height:332, url:'@Url.Action("GetMenuList","AdmMenu")', page:true, id:'id'}" lay-filter="demo">
-                    <thead>
-                        <tr>
-                            <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
-                            <th lay-data="{field:'Module_ID', width:80, sort: true, fixed: true}">ID</th>
-                            <th lay-data="{field:'Module_Name', width:80}">菜单名称</th>
-                            <th lay-data="{field:'Module_Parent', width:80, sort: true}">父类名称</th>
-                            <th lay-data="{field:'Module_Hierarchy', width:80}">城市</th>
-                            <th lay-data="{field:'Module_Level', width:160}">等级</th>
-                            <th lay-data="{field:'Module_OrderBy', width:80, sort: true}">排序</th>
-                            <th lay-data="{field:'ModuleIcon_Url', width:80}">图标</th>
-                            <th lay-data="{field:'Module_TrueUrl', width:135, sort: true}">真实地址</th>
-                            <th lay-data="{field:'Module_VirtualUrl', width:80, sort: true, fixed: 'right'}">虚地址</th>
-                            <th lay-data="{fixed: 'right', width:178, align:'center', toolbar: '#barDemo'}"></th>
-                        </tr>
-                    </thead>
-                </table>
-
-                <script type="text/html" id="barDemo">
-                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                </script>
-
+                </form>
             </div>
         </div>
     </div>
-
-    <script src="~/Script/layui/layui.js"></script>
-    <script>
-        layui.use(['table', 'layer'], function () {
-            var table = layui.table, layer = layui.layer;
-            //监听表格复选框选择
-            table.on('checkbox(demo)', function (obj) {
-                console.log(obj)
-            });
-            //监听工具条
-            table.on('tool(demo)', function (obj) {
-                var data = obj.data;
-                if (obj.event === 'detail') {
-                    layer.msg('ID：' + data.id + ' 的查看操作');
-                } else if (obj.event === 'del') {
-                    layer.confirm('真的删除行么', function (index) {
-                        obj.del();
-                        layer.close(index);
-                    });
-                } else if (obj.event === 'edit') {
-                    layer.alert('编辑行：<br>' + JSON.stringify(data))
-                }
-            });
-
-            var $ = layui.$, active = {
-                MenuDelete: function () { //获取选中数据
-                    var checkStatus = table.checkStatus('id')
-                        , data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                }
-                , MenuAdd: function () { //添加
-                    //iframe窗
-                    layer.open({
-                        type: 2,
-                        title: '菜单添加',
-                        closeBtn: 1, //不显示关闭按钮
-                        shade: [0],
-                        area: ['500px', '450px'],
-                        offset: 'auto', //弹出位置
-                        anim: 2,
-                        content: ['@Url.Action("MenuAdd","AdmMenu")', 'no'], //iframe的url，no代表不显示滚动条
-                    });
-                }
-            };
-
-            $('.demoTable .layui-btn').on('click', function () {
-                var type = $(this).data('type');
-                active[type] ? active[type].call(this) : '';
-            });
-        });
-    </script>
 </body>
+<script src="~/Script/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: 'ThirdParty/authtree/',
+    }).extend({
+        authtree: 'authtree',
+    });
+    layui.use(['table', 'authtree', 'layer'], function () {
+        var $ = layui.jquery;
+        var authtree = layui.authtree;
+        var form = layui.form;
+        var layer = layui.layer;
+
+        $.ajax({
+            url: 'tree.json',
+            dataType: 'json',
+            success: function (data) {
+                // 渲染时传入渲染目标ID，树形结构数据（具体结构看样例，checked表示默认选中），以及input表单的名字
+                authtree.render('#LAY-auth-tree-index', data.data.trees, { inputname: 'authids[]', layfilter: 'lay-check-auth', openall: false });
+                form.on('checkbox(lay-check-auth)', function (data) {
+                    // 注意这里：需要等待事件冒泡完成，不然获取叶子节点不准确。
+                    setTimeout(function () {
+                        // 获取选中的叶子节点
+                        var leaf = authtree.getLeaf('#LAY-auth-tree-index');
+                        console.log(leaf);
+                    }, 100);
+                });
+            }
+        });
+        // 异步提交表单信息
+        form.on('submit(LAY-auth-tree-submit)', function (obj) {
+            // 注意如果直接通过layui的obj.field可能会出现问题，layuiAdmin请使用admin.req();
+            var authids = authtree.getAll('#LAY-auth-tree-index');
+            console.log('Choosed authids is', authids);
+            obj.field.authids = authids;
+            $.ajax({
+                url: 'tree.json',
+                dataType: 'json',
+                data: obj.field,
+                success: function (res) {
+                    layer.alert('提交成功！');
+                }
+            });
+            return false;
+        });
+    });
+</script>
 </html>

@@ -1,8 +1,136 @@
-﻿
+﻿@using ICPOS.EntityFramwork.Model;
+@using System.Text;
+
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    Layout = null;
+    IList<Module> menulist = ViewBag.MenuList;
 }
 
-<h2>Index</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 后台大布局 - Layui</title>
+    <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body class="layui-layout-body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">layui 后台布局</div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="">控制台</a></li>
+                <li class="layui-nav-item"><a href="">商品管理</a></li>
+                <li class="layui-nav-item"><a href="">用户</a></li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">其它系统</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">邮件管理</a></dd>
+                        <dd><a href="">消息管理</a></dd>
+                        <dd><a href="">授权管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                        贤心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item"><a href="">退了</a></li>
+            </ul>
+        </div>
 
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="dao_hang_lan">
+                    @if (menulist != null && menulist.Any())
+                    {
+                        StringBuilder strbd = new StringBuilder();
+                        var first = menulist.Where(a => a.Module_Level == 1);
+                        foreach (var item in first)
+                        {
+                            strbd.Append("<li class=\"layui-nav-item\">");
+                            strbd.AppendFormat("<a class=\"\" id=\"{0}\" data-url=\"{1}\" href=\"javascript:\" >{2}</a>", item.Module_ID, item.Module_TrueUrl, item.Module_Name);
+                            var second = menulist.Where(a => a.Module_Level == 2 && a.Module_Parent == item.Module_ID);
+                            if (second != null && second.Any())
+                            {
+                                strbd.Append("<dl class=\"layui-nav-child\">");
+                                foreach (var item2 in second)
+                                {
+                                    strbd.AppendFormat("<dd><a class=\"\" id=\"{0}\" data-url=\"{1}\" href=\"javascript:\" >{2}</a></dd>", item2.Module_ID, item2.Module_TrueUrl, item2.Module_Name);
+                                }
+                                strbd.Append("</dl>");
+                            }
+                            strbd.Append("</li>");
+                        }
+                        @(new MvcHtmlString(strbd.ToString()));
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab" lay-filter="xuan_xiang_ka" lay-allowclose="true">
+                <ul class="layui-tab-title"></ul>
+                <div class="layui-tab-content"></div>
+            </div>
+
+        </div>
+
+        <div class="layui-footer">
+            底部固定区域
+            © layui.com - 底部固定区域
+        </div>
+    </div>
+    <script src="~/Script/layui/layui.js"></script>
+    <script type="text/javascript">
+        layui.use('element', function () {
+            var $ = layui.jquery
+                , element = layui.element;
+
+            //监控导航栏
+            element.on('nav(dao_hang_lan)', function (elem) {
+                //选项卡添加
+                //console.log(elem);
+                var ctx = elem.context.attributes;
+                addTab(elem[0].innerText, ctx[2].nodeValue, ctx[1].nodeValue);
+            });
+
+                //选项卡  tabTitle(选项卡标题)；tabUrl(选项卡地址)；tabId(导航栏ID)
+                function addTab(tabTitle, tabUrl, tabId) {
+                    console.log(tabTitle + ',' + tabUrl + ',' + tabId);
+                    if (tabUrl == "#") {
+
+                    }else if ($(".layui-tab-title li[lay-id=" + tabId + "]").length > 0) {
+                        element.tabChange('xuan_xiang_ka', tabId);
+                    } else {
+                        element.tabAdd('xuan_xiang_ka', {
+                            title: tabTitle
+                            , content: '<iframe src=' + tabUrl + ' width="100%" style="min-height: 450px" frameborder="0" scrolling="auto" onload="setIframeHeight(this)"></iframe>' // 选项卡内容，支持传入html
+                            , id: tabId //选项卡标题的lay-id属性值
+                        });
+                        element.tabChange('xuan_xiang_ka', tabId); //切换到新增的tab上
+                    }
+            };
+        });
+
+        function setIframeHeight(iframe) {
+            if (iframe) {
+                var iframeWin = iframe.contentWindow || iframe.contentDocument.parentWindow;
+                if (iframeWin.document.body) {
+                    iframe.height = iframeWin.document.documentElement.scrollHeight || iframeWin.document.body.scrollHeight;
+                }
+            }
+        };
+    </script>
+</body>
+</html>
