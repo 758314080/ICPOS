@@ -817,7 +817,7 @@ namespace ICPOS.Common
         /// <typeparam name="T">类型</typeparam>
         /// <param name="sqlStr">要查询的T-SQL</param>
         /// <returns></returns>
-        public static IList<T> GetList<T>(string sqlStr)
+        public static List<T> GetList<T>(string sqlStr)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -837,7 +837,7 @@ namespace ICPOS.Common
         /// <param name="dataSet">数据源</param>
         /// <param name="tableIndex">需要转换表的索引</param>
         /// <returns></returns>
-        public static IList<T> DataSetToList<T>(DataSet dataSet, int tableIndex)
+        public static List<T> DataSetToList<T>(DataSet dataSet, int tableIndex)
         {
             //确认参数有效
             if (dataSet == null || dataSet.Tables.Count <= 0 || tableIndex < 0)
@@ -845,7 +845,7 @@ namespace ICPOS.Common
 
             DataTable dt = dataSet.Tables[tableIndex];
 
-            IList<T> list = new List<T>();
+            List<T> list = new List<T>();
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {

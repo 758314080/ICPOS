@@ -8,41 +8,44 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>菜单列表</title>
+    <title>角色授权</title>
     <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
 </head>
-<body layadmin-themealias="default" style="">
-    <div class="layui-container">
-        <div class="layui-row">
-            <div class="layui-col-md6 layui-col-md-offset1">
-                <fieldset class="layui-elem-field layui-field-title"><legend>权限树扩展分享</legend></fieldset>
-                <!-- 此扩展能递归渲染一个权限树，点击深层次节点，父级节点中没有被选中的节点会被自动选中，单独点击父节点，子节点会全部 选中/去选中 -->
-                <form class="layui-form">
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">角色名称</label>
-                        <div class="layui-input-block">
-                            <input class="layui-input" type="text" name="name" placeholder="请输入角色名称" />
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">选择权限</label>
-                        <div class="layui-input-block">
-                            <div id="LAY-auth-tree-index"></div>
-                        </div>
-                    </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" type="submit" lay-submit lay-filter="LAY-auth-tree-submit">提交</button>
-                            <button class="layui-btn layui-btn-primary" type="reset">重置</button>
-                        </div>
-                    </div>
-                </form>
+<body>
+    <form class="layui-form layui-form-pane" action="" style="padding:20px;" lay-filter="userform">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline" lay-filter="UsersRole">
+                    <input type="text" name="Role_Name" required lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+                </div>
             </div>
         </div>
-    </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色说明</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="Role_Description" required lay-verify="required" placeholder="请输入角色说明" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色权限</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <div id="LAY-auth-tree-index"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+            </div>
+        </div>
+    </form>
     <script src="~/Script/layui/layui.js"></script>
-    <script>
-    layui.config({
+    <script type="text/javascript">
+         layui.config({
         base: '/Script/ThirdParty/',
     }).extend({
         authtree: 'authtree',

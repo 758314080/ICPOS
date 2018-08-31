@@ -196,7 +196,7 @@
     <Content Include="Script\layui\lay\modules\tree.js" />
     <Content Include="Script\layui\lay\modules\upload.js" />
     <Content Include="Script\layui\lay\modules\util.js" />
-    <Content Include="Script\layui\ThirdParty\authtree\authtree.js" />
+    <Content Include="Script\ThirdParty\authtree.js" />
     <Content Include="Script\Select2\css\select2.css" />
     <Content Include="Script\Select2\select2.full.js" />
     <Content Include="Script\Select2\select2.full.min.js" />
@@ -372,6 +372,7 @@
     <Compile Include="Areas\Admin\Controllers\AdmBaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdmHomeController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdmMenuController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdmRoleController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdmUsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -389,6 +390,7 @@
     <Content Include="Areas\Admin\Views\AdmMenu\MenuAdd.cshtml" />
     <Content Include="Areas\Admin\Views\AdmUsers\UsersAdd.cshtml" />
     <Content Include="Areas\Admin\Views\AdmUsers\UsersList.cshtml" />
+    <Content Include="Areas\Admin\Views\AdmRole\Index.cshtml" />
     <None Include="packages.config" />
     <Content Include="Script\layui\font\iconfont.eot" />
     <Content Include="Script\layui\font\iconfont.ttf" />
@@ -405,7 +407,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Views\AdmBase\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>

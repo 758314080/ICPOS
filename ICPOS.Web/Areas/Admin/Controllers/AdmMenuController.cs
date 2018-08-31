@@ -37,18 +37,45 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             ResultJson res = new ResultJson();
             string sql = "select * from Module";
             IList<Module> menuList = DbHelperSQL.GetList<Module>(sql);
-            if (menuList != null)
+            if (menuList!=null&&menuList.Count>0)
             {
+                Dictionary<string, IList<MenuListDto>> tree = new Dictionary<string, IList<MenuListDto>>();
+                IList<MenuListDto> treedto = new List<MenuListDto>();
+                IList<Module> first = menuList.Where(a=>a.Module_Level==1).OrderBy(a=>a.Module_OrderBy).ToList();
+                if (first != null && first.Count > 0)
+                {
+                    foreach (var item1 in first)
+                    {
+                        MenuListDto firstDto = new MenuListDto();
+                        firstDto.name = item1.Module_Name;
+                        firstDto.value = item1.Module_ID.ToString();
+                        IList<Module> second = menuList.Where(a => a.Module_Parent == item1.Module_ID).OrderBy(a=>a.Module_OrderBy).ToList();
+                        IList<Dictionary<string, string>> listdto = new List<Dictionary<string, string>>();
+                        if (second != null && second.Count > 0)
+                        {
+                            foreach (var item2 in second)
+                            {
+                                Dictionary<string, string> seconddto = new Dictionary<string, string>();
+                                seconddto.Add("name", item2.Module_Name);
+                                seconddto.Add("value", item2.Module_ID.ToString());
+                                listdto.Add(seconddto);
+                            }
+                            firstDto.list = listdto;
+                        }
+                        treedto.Add(firstDto);
+                    }
+                }
+                tree.Add("trees", treedto);
                 res.code = "0";
                 res.msg = "成功";
-                res.count = menuList.Count.ToString();
-                res.data = menuList;
+                res.data = tree;
             }
             else
             {
                 res.code = "1";
                 res.msg = "失败";
             }
+            string o= JsonConvert.SerializeObject(res);
             return JsonConvert.SerializeObject(res);
         }
         #endregion
