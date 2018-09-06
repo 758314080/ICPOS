@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dto\Menu\MenuAuthDto.cs" />
     <Compile Include="Dto\Menu\MenuListDto.cs" />
     <Compile Include="Dto\Menu\NavigationBarDto.cs" />
     <Compile Include="Dto\Users\UserListDto.cs" />

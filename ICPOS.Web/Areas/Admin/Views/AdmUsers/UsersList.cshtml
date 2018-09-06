@@ -130,7 +130,7 @@
                         area: ['500px', '450px'],
                         offset: 'auto', //弹出位置
                         anim: 2,
-                        content: ['@Url.Action("UsersAdd","AdmUsers")' + '?Users_ID=' + data.Users_ID ], //iframe的url，no代表不显示滚动条
+                        content: ['@Url.Action("UsersHandle", "AdmUsers")' + '?Users_ID=' + data.Users_ID ], //iframe的url，no代表不显示滚动条
                         end: function () {
                             table.reload('tabid');
                         }
@@ -172,7 +172,7 @@
                         area: ['500px', '450px'],
                         offset: 'auto', //弹出位置
                         anim: 2,
-                        content: ['@Url.Action("UsersAdd","AdmUsers")'], //iframe的url，no代表不显示滚动条
+                        content: ['@Url.Action("UsersHandle", "AdmUsers")'], //iframe的url，no代表不显示滚动条
                         end: function () {
                             table.reload('tabid');
                         }

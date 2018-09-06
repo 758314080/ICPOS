@@ -22,7 +22,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult UsersAdd()
+        public ActionResult UsersHandle()
         {
             if (GetQuerystring("Users_ID")!=null)
             {
@@ -36,7 +36,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
             return View();
         }
 
-        #region ajax
+        //-------- ajax --------
 
         #region Login
         [HttpPost]
@@ -154,31 +154,11 @@ namespace ICPOS.Web.Areas.Admin.Controllers
 
         #endregion
 
-        #region UserAdd
-        //获取用户角色列表
-        public string GetRoleList()
-        {
-            ResultJson res = new ResultJson();
-            string sql = "select * from Role where Role_Priv_Level=1";
-            IList<ICPOS.EntityFramwork.Model.Role> MRole = DbHelperSQL.GetList<ICPOS.EntityFramwork.Model.Role>(sql);
-            if (MRole != null)
-            {
-                res.code = "0";
-                res.msg = "成功";
-                res.count = "10";
-                res.data = MRole;
-            }
-            else
-            {
-                res.code = "1";
-                res.msg = "失败";
-            }
-            return JsonConvert.SerializeObject(res);
-        }
+        #region UsersHandle
 
-        //添加或修改
+        #region 添加或修改
         [HttpPost]
-        public string Add()
+        public string AddOrUpd()
         {
             ResultJson res = new ResultJson();
             if (!string.IsNullOrEmpty(GetQuerystring("LoginName")) && !string.IsNullOrEmpty(GetQuerystring("PassWord")) && !string.IsNullOrEmpty(GetQuerystring("RoleName")) && !string.IsNullOrEmpty(GetQuerystring("Name")) && !string.IsNullOrEmpty(GetQuerystring("Phone")) && !string.IsNullOrEmpty(GetQuerystring("Email")))
@@ -232,5 +212,6 @@ namespace ICPOS.Web.Areas.Admin.Controllers
         #endregion
 
         #endregion
+
     }
 }

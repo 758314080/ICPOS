@@ -206,7 +206,7 @@ namespace ICPOS.EntityFramwork.DAL
 				}
 				if(row["Module_ID"]!=null && row["Module_ID"].ToString()!="")
 				{
-					model.Module_ID=int.Parse(row["Module_ID"].ToString());
+					model.Module_ID=(row["Module_ID"].ToString());
 				}
 				if(row["Crud_Operation"]!=null && row["Crud_Operation"].ToString()!="")
 				{

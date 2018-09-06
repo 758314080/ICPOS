@@ -1,0 +1,120 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>角色授权</title>
+    <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+        <legend>角色授权</legend>
+    </fieldset>
+
+    <div style="padding: 20px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md2 layui-col-md-offset2">
+                <div class="layui-card">
+                    <div class="layui-card-header">角色列表</div>
+                    <div class="layui-card-body">
+                        <ul lay-filter="demo">
+                            <li class="layui-nav-item">
+                                <a href="javascript:;">默认展开</a>
+                            </li>
+                            <li class="layui-nav-item">
+                                <a href="javascript:;">解决方案</a>
+                            </li>
+                            <li class="layui-nav-item"><a href="">云市场</a></li>
+                            <li class="layui-nav-item"><a href="">社区</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md5">
+                <div class="layui-card">
+                    <div class="layui-card-header">卡片面板</div>
+                    <div class="layui-card-body">
+                        <div class="layui-input-inline">
+                            <a class="layui-btn layui-btn-primary" onclick="window.location.href='index.html';">刷新</a>
+                            <a class="layui-btn layui-btn-primary" onclick="add();">新增一行</a>
+                            <a class="layui-btn layui-btn-primary" onclick="print();">打印缓存对象</a>
+                            <table class="layui-hidden" id="treeTable" lay-filter="treeTable"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Script/layui/layui.js"></script>
+    <script type="text/javascript">
+        var editObj = null, ptable = null, treeGrid = null, tableId = 'treeTable', layer = null;
+        layui.config({
+            base: '/Script/ThirdParty/treeGrid/'
+        }).extend({
+            treeGrid: 'treeGrid'
+        }).use(['jquery', 'treeGrid', 'layer'], function () {
+            var $ = layui.jquery;
+            treeGrid = layui.treeGrid;//很重要
+            layer = layui.layer;
+            ptable = treeGrid.render({
+                id: tableId
+                , elem: '#' + tableId
+                , idField: 'id'
+                , url: '@Url.Action("GetMenuList", "AdmMenu")'
+                , cellMinWidth: 100
+                , treeId: 'id'//树形id字段名称
+                , treeUpId: 'pId'//树形父id字段名称
+                , treeShowName: 'name'//以树形式显示的字段
+                , cols: [[
+                     { field: 'name', edit: 'text', width: 300, title: '菜单名称' }
+                ]]
+                , page: false
+            });
+
+            treeGrid.on('tool(' + tableId + ')', function (obj) {
+                if (obj.event === 'del') {//删除行
+                    del(obj);
+                } else if (obj.event === "add") {//添加行
+                    add(obj.data);
+                }
+            });
+        });
+
+        function del(obj) {
+            layer.confirm("你确定删除数据吗？如果存在下级节点则一并删除，此操作不能撤销！", { icon: 3, title: '提示' },
+                function (index) {//确定回调
+                    obj.del();
+                    layer.close(index);
+                }, function (index) {//取消回调
+                    layer.close(index);
+                }
+            );
+        }
+
+
+        var i = 1000;
+        //添加
+        function add(pObj) {
+            var param = {};
+            param.name = '水果' + Math.random();
+            param.id = ++i;
+            param.pId = pObj ? pObj.id : 0;
+            treeGrid.addRow(tableId, pObj ? pObj.LAY_TABLE_INDEX + 1 : 0, param);
+        }
+
+        function print() {
+            console.log(treeGrid.cache[tableId]);
+            var loadIndex = layer.msg("对象已打印，按F12，在控制台查看！", {
+                time: 3000
+                , offset: 'auto'//顶部
+                , shade: 0
+            });
+        }
+    </script>
+</body>
+</html>

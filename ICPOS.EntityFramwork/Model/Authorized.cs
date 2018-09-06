@@ -28,7 +28,7 @@ namespace ICPOS.EntityFramwork.Model
 		#region Model
 		private int _authorized_id;
 		private int? _role_id;
-		private int? _module_id;
+		private string _module_id;
 		private int? _crud_operation;
 		/// <summary>
 		/// 
@@ -49,7 +49,7 @@ namespace ICPOS.EntityFramwork.Model
 		/// <summary>
 		/// 
 		/// </summary>
-		public int? Module_ID
+		public string Module_ID
 		{
 			set{ _module_id=value;}
 			get{return _module_id;}

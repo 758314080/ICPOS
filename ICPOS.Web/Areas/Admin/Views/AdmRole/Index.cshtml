@@ -8,87 +8,130 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>角色授权</title>
+    <title>角色列表</title>
     <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
 </head>
-<body>
-    <form class="layui-form layui-form-pane" action="" style="padding:20px;" lay-filter="userform">
-        <div class="layui-form-item">
-            <label class="layui-form-label">角色名称</label>
-            <div class="layui-input-block">
-                <div class="layui-input-inline" lay-filter="UsersRole">
-                    <input type="text" name="Role_Name" required lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">角色说明</label>
-            <div class="layui-input-block">
-                <div class="layui-input-inline">
-                    <input type="text" name="Role_Description" required lay-verify="required" placeholder="请输入角色说明" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">角色权限</label>
-            <div class="layui-input-block">
-                <div class="layui-input-inline">
-                    <div id="LAY-auth-tree-index"></div>
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
-            </div>
-        </div>
-    </form>
-    <script src="~/Script/layui/layui.js"></script>
-    <script type="text/javascript">
-         layui.config({
-        base: '/Script/ThirdParty/',
-    }).extend({
-        authtree: 'authtree',
-    });
-    layui.use(['table', 'authtree', 'layer'], function () {
-        var $ = layui.jquery;
-        var authtree = layui.authtree;
-        var form = layui.form;
-        var layer = layui.layer;
+<body layadmin-themealias="default" style="">
+    <div class="layui-fluid">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-card-header">角色列表</div>
+                    <div class="layui-card-body">
 
-        $.ajax({
-            url: '@Url.Action("GetMenuList", "AdmMenu")',
-            dataType: 'json',
-            success: function (data) {
-                // 渲染时传入渲染目标ID，树形结构数据（具体结构看样例，checked表示默认选中），以及input表单的名字
-                authtree.render('#LAY-auth-tree-index', data.data.trees, { inputname: 'authids[]', layfilter: 'lay-check-auth', openall: false });
-                form.on('checkbox(lay-check-auth)', function (data) {
-                    // 注意这里：需要等待事件冒泡完成，不然获取叶子节点不准确。
-                    setTimeout(function () {
-                        // 获取选中的叶子节点
-                        var leaf = authtree.getLeaf('#LAY-auth-tree-index');
-                        console.log(leaf);
-                    }, 100);
-                });
-            }
-        });
-        // 异步提交表单信息
-        form.on('submit(LAY-auth-tree-submit)', function (obj) {
-            // 注意如果直接通过layui的obj.field可能会出现问题，layuiAdmin请使用admin.req();
-            var authids = authtree.getAll('#LAY-auth-tree-index');
-            console.log('Choosed authids is', authids);
-            obj.field.authids = authids;
-            $.ajax({
-                url: 'tree.json',
-                dataType: 'json',
-                data: obj.field,
-                success: function (res) {
-                    layer.alert('提交成功！');
+                        <div class="test-table-reload-btn" style="margin-bottom: 10px;">
+                            搜索ID：
+                            <div class="layui-inline">
+                                <input class="layui-input" name="id" id="test-table-demoReload" autocomplete="off">
+                            </div>
+                            <button class="layui-btn" data-type="reload">搜索</button>
+                        </div>
+
+                        <table class="layui-hide" id="RoleList" lay-filter="rolelist"></table>
+
+                        <!--列表头-->
+                        <script type="text/html" id="tab-head">
+                            <div class="layui-btn-container">
+                                <button class="layui-btn layui-btn-sm" lay-event="RoleAdd">添加角色</button>
+                            </div>
+                        </script>
+                        <!--列表行尾-->
+                        <script type="text/html" id="tab-handle">
+                            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Script/layui/layui.js"></script>
+    <script>
+        layui.use(['table', 'layer'], function () {
+            var $ = layui.jquery, table = layui.table, layer = layui.layer;
+
+            //方法级渲染
+            table.render({
+                elem: '#RoleList'
+                , url: '@Url.Action("GetRoleList", "AdmRole")'
+                , toolbar: '#tab-head'
+                , cellMinWidth: 80 //全局定义常规单元格的最小宽度
+                , cols: [[
+                    { checkbox: true, fixed: true }
+                    , { field: 'Role_ID', title: 'ID',}
+                    , { field: 'Role_Name', title: '角色名称'}
+                    , { field: 'Role_Description', title: '角色简介' }
+                    , { fixed: 'right', title: '操作', toolbar: '#tab-handle', width: 150 }
+                ]]
+                , id:'tabid'
+                , page: true
+            });
+
+            //头工具栏事件
+            table.on('toolbar(rolelist)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'RoleAdd':
+                        //iframe窗
+                        layer.open({
+                            type: 2,
+                            title: '角色添加',
+                            closeBtn: 1, //不显示关闭按钮
+                            shade: [0],
+                            area: ['500px', '450px'],
+                            offset: 'auto', //弹出位置
+                            anim: 2,
+                            content: ['@Url.Action("RoleHandle", "AdmRole")'],
+                            end: function () {
+                                table.reload('tabid');
+                            }
+                        });
+                        break;
+                };
+            });
+
+            //监听行工具事件
+            table.on('tool(rolelist)', function (obj) {
+                var data = obj.data;
+                //console.log(obj)
+                if (obj.event === 'del') {
+                    layer.confirm('真的删除行么', function (index) {
+                        obj.del();
+                        $.ajax({
+                            type: 'post',
+                            url: '@Url.Action("Delete", "AdmRole")',
+                            data: { Role_ID: data.Role_ID },
+                            datatype: 'json',
+                            success: function (res) {
+                                var json = JSON.parse(res);
+                                if (json.code == 0) {
+                                    layer.msg(json.msg);
+                                } else {
+                                    layer.msg(json.msg)
+                                }
+                            }
+                        });
+                        layer.close(index);
+                    });
+                } else if (obj.event === 'edit') {
+                   layer.open({
+                        type: 2,
+                        title: '角色修改',
+                        closeBtn: 1, //不显示关闭按钮
+                        shade: [0],
+                        area: ['500px', '450px'],
+                        offset: 'auto', //弹出位置
+                        anim: 2,
+                       content: ['@Url.Action("RoleHandle", "AdmRole")' + '?Role_ID=' + data.Role_ID ], //iframe的url，no代表不显示滚动条
+                        end: function () {
+                            table.reload('tabid');
+                        }
+                    });
                 }
             });
-            return false;
         });
-    });
     </script>
 </body>
 </html>

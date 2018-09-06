@@ -13,7 +13,7 @@
     <link href="~/Script/layui/css/layui.css" rel="stylesheet" media="all" />
 </head>
 <body>
-    <form class="layui-form" action="" style="padding:20px;" lay-filter="userform">
+    <form class="layui-form layui-form-pane" action="" style="padding:20px;" lay-filter="userform">
         <div class="layui-form-item">
             <label class="layui-form-label">登录名</label>
             <div class="layui-input-block">
@@ -100,7 +100,7 @@
                 }
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("GetRoleList","AdmUsers")',
+                    url: '@Url.Action("GetRoleList","AdmRole")',
                     data: data,
                     datatype: 'json',
                     success: function (res) {
@@ -135,7 +135,7 @@
             form.on('submit(submit)', function (data) {
                 $.ajax({
                     type: 'POST',
-                    url: '@Url.Action("Add", "AdmUsers")',
+                    url: '@Url.Action("AddOrUpd", "AdmUsers")',
                     data: data.field,
                     datatype: 'json',
                     success: function (res) {

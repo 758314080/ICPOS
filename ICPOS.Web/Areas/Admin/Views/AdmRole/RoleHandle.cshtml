@@ -1,0 +1,96 @@
+﻿
+@{
+    Layout = null;
+    ICPOS.EntityFramwork.Model.Role MRole = ViewBag.RoleMod == null ? new ICPOS.EntityFramwork.Model.Role() : ViewBag.UsersMod;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>角色授权</title>
+    <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
+</head>
+<body>
+    <form class="layui-form layui-form-pane" action="" style="padding:20px;" lay-filter="userform">
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline" lay-filter="UsersRole">
+                    <input type="text" name="Role_Name" required lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色说明</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="Role_Description" required lay-verify="required" placeholder="请输入角色说明" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色权限</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <div id="Privilege-tree"></div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+            </div>
+        </div>
+    </form>
+    <script src="~/Script/layui/layui.js"></script>
+    <script type="text/javascript">
+         layui.config({
+        base: '/Script/ThirdParty/',
+    }).extend({
+        authtree: 'authtree',
+    });
+    layui.use(['table', 'authtree', 'layer'], function () {
+        var $ = layui.jquery;
+        var authtree = layui.authtree;
+        var form = layui.form;
+        var layer = layui.layer;
+
+        $.ajax({
+            url: '@Url.Action("GetMenuList", "AdmMenu")',
+            dataType: 'json',
+            success: function (data) {
+                // 渲染时传入渲染目标ID，树形结构数据（具体结构看样例，checked表示默认选中），以及input表单的名字
+                authtree.render('#Privilege-tree', data.data.trees, { inputname: 'authids[]', layfilter: 'lay-check-auth', openall: false });
+                form.on('checkbox(lay-check-auth)', function (data) {
+                    // 注意这里：需要等待事件冒泡完成，不然获取叶子节点不准确。
+                    setTimeout(function () {
+                        // 获取选中的叶子节点
+                        var leaf = authtree.getLeaf('#Privilege-tree');
+                        console.log(leaf);
+                    }, 100);
+                });
+            }
+        });
+        // 异步提交表单信息
+        form.on('submit(submit)', function (obj) {
+            // 注意如果直接通过layui的obj.field可能会出现问题，layuiAdmin请使用admin.req();
+            var authids = authtree.getAll('#Privilege-tree');
+            console.log('Choosed authids is', authids);
+            obj.field.authids = authids.join(',');
+            $.ajax({
+                type: 'POST',                
+                url: '@Url.Action("AddOrUpd", "AdmRole")',
+                data: obj.field,
+                dataType: 'json',
+                success: function (res) {
+                    layer.alert('提交成功！');
+                }
+            });
+            return false;
+        });
+    });
+    </script>
+</body>
+</html>
