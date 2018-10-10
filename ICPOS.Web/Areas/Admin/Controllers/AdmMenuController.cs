@@ -26,20 +26,126 @@ namespace ICPOS.Web.Areas.Admin.Controllers
 
         public ActionResult MenuAdd()
         {
+            if (!string.IsNullOrEmpty(GetQuerystring("Module_ID")))
+            {
+                int menuid = int.Parse(GetQuerystring("Module_ID"));
+                if (new ICPOS.EntityFramwork.BLL.Module().Exists(menuid))
+                {
+                    string sql = "select * from [ICPOS].[dbo].[Module] S where Module_ID='" + menuid + "'";
+                    ICPOS.EntityFramwork.Model.Module MModule = DbHelperSQL.GetList<ICPOS.EntityFramwork.Model.Module>(sql)[0];
+                    ViewBag.MenuMod = MModule;
+                }
+            }
             return View();
         }
 
         #region Ajax
 
         #region 获取菜单列表
-        public string GetMenuList()
+        public string MenuListGet()
         {
             ResultJson res = new ResultJson();
-            string sql = @"  select m.Module_ID as id,m.Module_Parent pid,m.Module_Name name
-                             from Module m
-                             where Type=1";
-            IList<MenuAuthDto> menuList = DbHelperSQL.GetList<MenuAuthDto>(sql);
-            if (menuList!=null&&menuList.Count>0)
+            string sql = @"select [Module_ID],[Type],[Module_Name],[Module_Parent],[Module_Hierarchy],[Module_Level],[Module_OrderBy],[ModuleIcon_Url],[Module_TrueUrl],[Module_VirtualUrl] from Module";
+            List<ICPOS.EntityFramwork.Model.Module> menuList = DbHelperSQL.GetList<ICPOS.EntityFramwork.Model.Module>(sql);
+            if (menuList != null && menuList.Count > 0)
+            {
+                res.code = "0";
+                res.msg = "成功";
+                res.count = menuList.Count.ToString();
+                res.data = menuList;
+            }
+            else
+            {
+                res.code = "1";
+                res.msg = "失败";
+            }
+            string o = JsonConvert.SerializeObject(res);
+            return o;
+        }
+        #endregion
+
+        #region 获取一级菜单
+        public string GetMenuFirst()
+        {
+            string res = null;
+            string sql = @"select Module_ID,Module_Name from Module where Type='1' and Module_Level='1'";
+            string tabjson = DbHelperSQL.DataTableConvertJson(sql,out int count);
+            if (tabjson != null && tabjson != "")
+            {
+                res = "{\"code\":\"0\",\"msg\":\"成功\",\"count\":\"" + count + "\",\"data\":" + tabjson + "}";
+            }
+            else
+            {
+                res = "{\"code\":\"1\",\"msg\":\"失败\",\"data\":[]}";
+            }
+            return res;
+        }
+        #endregion
+
+        #region 菜单添加或修改
+        public string AddOrUpd()
+        {
+            ResultJson res = new ResultJson();
+            if (!string.IsNullOrEmpty(GetQuerystring("Module_Name")) && !string.IsNullOrEmpty(GetQuerystring("Module_Parent")) && !string.IsNullOrEmpty(GetQuerystring("Module_Level")) && !string.IsNullOrEmpty(GetQuerystring("Module_OrderBy")) && !string.IsNullOrEmpty(GetQuerystring("Module_VirtualUrl")))
+            {
+                string name = GetQuerystring("Module_Name").ToString();
+                string parent = GetQuerystring("Module_Parent").ToString();
+                string level = GetQuerystring("Module_Level").ToString();
+                string orderby = GetQuerystring("Module_OrderBy").ToString();
+                string VirtualUrl = GetQuerystring("Module_VirtualUrl").ToString();
+                string icon = string.IsNullOrEmpty(GetQuerystring("ModuleIcon_Url")) ? "" : GetQuerystring("ModuleIcon_Url").ToString();
+
+                Module MModule = string.IsNullOrEmpty(GetQuerystring("Module_ID")) ? new Module() : new ICPOS.EntityFramwork.BLL.Module().GetModel(int.Parse(GetQuerystring("Module_ID")));
+                MModule.Module_Name = name;
+                MModule.Module_Parent = level == "1" ? 0 : int.Parse(parent);
+                MModule.Module_Hierarchy = level;
+                MModule.Module_Level = int.Parse(level);
+                MModule.Module_OrderBy = int.Parse(orderby);
+                MModule.ModuleIcon_Url = icon;
+                MModule.Module_TrueUrl = "";
+                MModule.Module_VirtualUrl = VirtualUrl;
+                if (string.IsNullOrEmpty(GetQuerystring("Module_ID")))
+                {
+                    if (new ICPOS.EntityFramwork.BLL.Module().Add(MModule) > 0)
+                    {
+                        res.code = "0";
+                        res.msg = "添加成功";
+                    }
+                    else
+                    {
+                        res.code = "-1";
+                        res.msg = "请稍后重试";
+                    }
+                }
+                else
+                {
+                    if (new ICPOS.EntityFramwork.BLL.Module().Update(MModule))
+                    {
+                        res.code = "0";
+                        res.msg = "修改成功";
+                    }
+                    else
+                    {
+                        res.code = "-1";
+                        res.msg = "请稍后重试";
+                    }
+                }
+
+            }
+
+            return JsonConvert.SerializeObject(res);
+        }
+        #endregion
+
+        #region 获取角色菜单列表
+        public string GetRoleMenuList()
+        {
+            ResultJson res = new ResultJson();
+            string sql = @"select m.Module_ID as id,m.Module_Name name,CASE WHEN (#a.Module_ID IS NOT NULL) THEN 'true' WHEN (#a.Module_ID IS NULL) THEN 'false' END checkbox,'true' spread
+                           from [ICPOS].[dbo].[Module] m left join  (select * from Authorized where Role_ID='1') #a on m.Module_ID= #a.Module_ID
+                           where Type=1";
+            IList<MenuTreeDto> menuList = DbHelperSQL.GetList<MenuTreeDto>(sql);
+            if (menuList != null && menuList.Count > 0)
             {
                 res.code = "0";
                 res.msg = "成功";
@@ -85,7 +191,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
                 res.code = "1";
                 res.msg = "失败";
             }
-            string o= JsonConvert.SerializeObject(res);
+            //string o = JsonConvert.SerializeObject(res);
             return JsonConvert.SerializeObject(res);
         }
         #endregion
@@ -114,7 +220,7 @@ namespace ICPOS.Web.Areas.Admin.Controllers
                         nbdto.Module_VirtualUrl = first[i].Module_VirtualUrl;
 
                         IList<Module> second = modules.Where(a => a.Module_Level == 2).ToList();
-                        if (second!=null&&second.Count>0)
+                        if (second != null && second.Count > 0)
                         {
                             IList<NavigationBarDto> Module_Son = new List<NavigationBarDto>();
                             for (int j = 0; j < second.Count; j++)

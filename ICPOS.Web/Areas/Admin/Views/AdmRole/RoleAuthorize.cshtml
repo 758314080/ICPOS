@@ -9,7 +9,8 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>角色授权</title>
-    <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
+    @*<link href="~/Script/layui/css/layui.css" rel="stylesheet" />*@
+    <link href="~/Script/ThirdParty/atree/layui.css" rel="stylesheet" />
 </head>
 <body>
     <fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
@@ -37,84 +38,142 @@
             </div>
             <div class="layui-col-md5">
                 <div class="layui-card">
-                    <div class="layui-card-header">卡片面板</div>
+                    <div class="layui-card-header">权限列表</div>
                     <div class="layui-card-body">
-                        <div class="layui-input-inline">
-                            <a class="layui-btn layui-btn-primary" onclick="window.location.href='index.html';">刷新</a>
-                            <a class="layui-btn layui-btn-primary" onclick="add();">新增一行</a>
-                            <a class="layui-btn layui-btn-primary" onclick="print();">打印缓存对象</a>
-                            <table class="layui-hidden" id="treeTable" lay-filter="treeTable"></table>
-                        </div>
+                        <ul id="demo"></ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="~/Script/layui/layui.js"></script>
-    <script type="text/javascript">
-        var editObj = null, ptable = null, treeGrid = null, tableId = 'treeTable', layer = null;
+    @*<script src="~/Script/layui/layui.js"></script>*@
+    <script src="~/Script/ThirdParty/atree/layui.js"></script>
+    <script>
         layui.config({
-            base: '/Script/ThirdParty/treeGrid/'
+            base: '/Script/ThirdParty/atree/'
         }).extend({
-            treeGrid: 'treeGrid'
-        }).use(['jquery', 'treeGrid', 'layer'], function () {
-            var $ = layui.jquery;
-            treeGrid = layui.treeGrid;//很重要
-            layer = layui.layer;
-            ptable = treeGrid.render({
-                id: tableId
-                , elem: '#' + tableId
-                , idField: 'id'
-                , url: '@Url.Action("GetMenuList", "AdmMenu")'
-                , cellMinWidth: 100
-                , treeId: 'id'//树形id字段名称
-                , treeUpId: 'pId'//树形父id字段名称
-                , treeShowName: 'name'//以树形式显示的字段
-                , cols: [[
-                     { field: 'name', edit: 'text', width: 300, title: '菜单名称' }
-                ]]
-                , page: false
-            });
-
-            treeGrid.on('tool(' + tableId + ')', function (obj) {
-                if (obj.event === 'del') {//删除行
-                    del(obj);
-                } else if (obj.event === "add") {//添加行
-                    add(obj.data);
-                }
-            });
+            atree: 'atree'
         });
-
-        function del(obj) {
-            layer.confirm("你确定删除数据吗？如果存在下级节点则一并删除，此操作不能撤销！", { icon: 3, title: '提示' },
-                function (index) {//确定回调
-                    obj.del();
-                    layer.close(index);
-                }, function (index) {//取消回调
-                    layer.close(index);
-                }
-            );
-        }
-
-
-        var i = 1000;
-        //添加
-        function add(pObj) {
-            var param = {};
-            param.name = '水果' + Math.random();
-            param.id = ++i;
-            param.pId = pObj ? pObj.id : 0;
-            treeGrid.addRow(tableId, pObj ? pObj.LAY_TABLE_INDEX + 1 : 0, param);
-        }
-
-        function print() {
-            console.log(treeGrid.cache[tableId]);
-            var loadIndex = layer.msg("对象已打印，按F12，在控制台查看！", {
-                time: 3000
-                , offset: 'auto'//顶部
-                , shade: 0
+        layui.use('atree', function () {
+            var tree = layui.atree({
+                elem: '#demo' //指定元素
+                ,
+                check: 'checkbox' //勾选风格
+                ,
+                skin: 'as' //设定皮肤
+                //,target: '_blank' //是否新选项卡打开（比如节点返回href才有效）
+                ,
+                //              drag: true,
+                spreadAll: true,
+                props: {
+                    addBtnLabel: '新增',
+                    deleteBtnLabel: '删除',
+                    name: 'name',
+                    id: 'id',
+                    children: 'children',
+                    checkbox: 'checkbox',
+                    spread: 'spread'
+                },
+                change: function (val) {
+                    console.group('change event');
+                    console.log('Array');
+                    console.log(val);
+                    console.groupEnd();
+                },
+                click: function (item) { //点击节点回调
+                    console.group('click event');
+                    console.log('Object');
+                    console.log(item);
+                    console.groupEnd();
+                },
+                addClick: function (item, elem, add) {
+                    console.group('append event');
+                    console.log('Object');
+                    console.log(item);
+                    console.log('dom');
+                    console.log(elem);
+                    console.log('dom add event');
+                    var item = {
+                        name: '测试节点' + new Date().getTime(),
+                        id: -1
+                    };
+                    add(item);
+                    console.groupEnd();
+                },
+                deleteClick: function (item, elem, done) {
+                    console.group('delete event');
+                    console.log('Object');
+                    console.log(item);
+                    console.log('dom');
+                    console.log(elem);
+                    console.log('dom delete event');
+                    done();
+                    console.groupEnd();
+                },
+                nodes: [ //节点
+                    {
+                        name: '常用文件夹',
+                        id: 1,
+                        alias: 'changyong',
+                        children: [{
+                            name: '所有未读',
+                            id: 11
+                        }, {
+                            name: '置顶邮件',
+                            id: 12
+                        }, {
+                            name: '标签邮件',
+                            id: 13
+                        }]
+                    }, {
+                        name: '我的邮箱',
+                        id: 2,
+                        spread: true,
+                        children: [{
+                            name: 'QQ邮箱',
+                            id: 21,
+                            spread: true,
+                            children: [{
+                                name: '收件箱',
+                                id: 211,
+                                spread: true,
+                                children: [{
+                                    name: '所有未读',
+                                    checkbox: true,
+                                    id: 2111
+                                }, {
+                                    name: '置顶邮件',
+                                    id: 2112
+                                }, {
+                                    name: '标签邮件',
+                                    id: 2113
+                                }]
+                            }, {
+                                name: '已发出的邮件',
+                                id: 212
+                            }, {
+                                name: '垃圾邮件',
+                                id: 213
+                            }]
+                        }, {
+                            name: '阿里云邮',
+                            id: 22,
+                            children: [{
+                                name: '收件箱',
+                                id: 221
+                            }, {
+                                name: '已发出的邮件',
+                                id: 222
+                            }, {
+                                name: '垃圾邮件',
+                                id: 223
+                            }]
+                        }]
+                    }
+                ]
             });
-        }
+
+        });
     </script>
 </body>
 </html>

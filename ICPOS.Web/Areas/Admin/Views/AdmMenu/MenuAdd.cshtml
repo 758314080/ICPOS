@@ -1,6 +1,7 @@
 ﻿
 @{
     Layout = null;
+    ICPOS.EntityFramwork.Model.Module MModule = ViewBag.MenuMod == null ? new ICPOS.EntityFramwork.Model.Module() : ViewBag.MenuMod;
 }
 
 <!DOCTYPE html>
@@ -12,61 +13,76 @@
     <link href="~/Script/layui/css/layui.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <form class="layui-form" action="">
-                <div class="layui-form-item">
-                    <label class="layui-form-label">菜单类型</label>
-                    <div class="layui-input-block">
-                        <div class="layui-input-inline">
-                            <select name="Type">
-                                <option value=""></option>
-                                <option value="1">导航栏</option>
-                            </select>
-                        </div>
-                    </div>
+    <form class="layui-form layui-form-pane" action="" style="padding:20px;margin:0 auto;" lay-filter="menuform">
+        <div class="layui-form-item">
+            <label class="layui-form-label">父类菜单</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <select name="Module_Parent" lay-verify="required" lay-search="">
+                        <option value="">请选择父类菜单</option>
+                    </select>
                 </div>
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">菜单名称</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="Module_Name" lay-verify="Module_Name" autocomplete="off" placeholder="请输入菜单名称" class="layui-input">
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <label class="layui-form-label">所属菜单</label>
-                    <div class="layui-input-block">
-                        <div class="layui-input-inline">
-                            <select name="Module_Parent" lay-verify="">
-                                <option value=""></option>
-                                <option value="0">写作</option>
-                                <option value="1">阅读</option>
-                                <option value="2">游戏</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-inline">
-                        <label class="layui-form-label">显示顺序</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="Module_OrderBy" lay-verify="number" autocomplete="off" placeholder="请输入显示顺序" class="layui-input">
-                        </div>
-                    </div>
-                </div>
-                <div class="layui-form-item">
-                    <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit="">立即提交</button>
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单名称</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="Module_Name" required lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+                    <div style="display:none;">
+                        <input type="text" name="Module_ID" required lay-verify="required" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单等级</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline" lay-filter="UsersRole">
+                    <select name="Module_Level" lay-verify="required" lay-search="">
+                        <option value="">请选择菜单等级</option>
+                        <option value="1">1级</option>
+                        <option value="2">2级</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">排序</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="Module_OrderBy" required lay-verify="required" placeholder="请输入排序" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图标</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="ModuleIcon_Url" required placeholder="请选择图标" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">菜单地址</label>
+            <div class="layui-input-block">
+                <div class="layui-input-inline">
+                    <input type="text" name="Module_VirtualUrl" required lay-verify="required|email" placeholder="请输入菜单地址" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit="" lay-filter="submit">立即提交</button>
+            </div>
+        </div>
+    </form>
     <script src="~/Script/layui/layui.js"></script>
     <script type="text/javascript">
-        layui.use('form', function () {
+        layui.use(['form'], function () {
             var $ = layui.jquery, form = layui.form;
+
+            var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
 
             //自定义验证规则
             form.verify({
@@ -74,7 +90,83 @@
                     if (value.lenth == 0) {
                         return '菜单名称不能为空';
                     }
+                },
+                Module_Level: function (value) {
+                    if (value.lenth == 0) {
+                        return '菜单等级不能为空';
+                    }
+                },
+                Module_OrderBy: function (value) {
+                    if (value.lenth == 0) {
+                        return '排序不能为空';
+                    }
+                },
+                Module_VirtualUrl: function (value) {
+                    if (value.lenth == 0) {
+                        return '菜单地址不能为空';
+                    }
                 }
+            });
+
+            $(function () {
+                //下拉框赋值
+                var timestanp = Date.parse(new Date()); var sign = "123";
+                var data = {
+                    timestanp,
+                    sign
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetMenuFirst", "AdmMenu")',
+                    data: data,
+                    datatype: 'json',
+                    success: function (res) {
+                        var list = JSON.parse(res);
+                        if (list.code == 0) {
+                            var rolelist = '<option value=""></option>';
+                            for (var i = 0; i < list.data.length; i++) {
+                                rolelist += '<option value="' + list.data[i].Module_ID + '">' + list.data[i].Module_Name + '</option>';
+                            }
+                            $('select[name=Module_Parent]').append(rolelist);
+                            form.render('select');
+
+                            //表单初始化
+                            form.val('menuform', {
+                                "Module_Parent": '@MModule.Module_Parent' // 父菜单ID
+                                , "Module_ID": '@MModule.Module_ID'//菜单ID
+                                , "Module_Name": '@MModule.Module_Name'//菜单名
+                                , "Module_Level": '@MModule.Module_Level'//等级
+                                , "Module_OrderBy": '@MModule.Module_OrderBy' //排序
+                                , "ModuleIcon_Url": '@MModule.ModuleIcon_Url' //图标地址
+                                , "Module_VirtualUrl": '@MModule.Module_VirtualUrl' //路径地址
+                                , "Module_VirtualUrl": '@MModule.Module_VirtualUrl' //路径地址
+                            });
+                        }
+                        else {
+                            layer.alert(list.msg);
+                        }
+                    }
+                });
+            });
+
+            form.on('submit(submit)', function (data) {
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("AddOrUpd", "AdmMenu")',
+                    data: data.field,
+                    datatype: 'json',
+                    success: function (res) {
+                        var json = JSON.parse(res);
+                        if (json.code == 0) {
+                            parent.layer.msg(json.msg);
+                            parent.layer.close(index);
+                        }
+                        else {
+                            parent.layer.msg(json.msg);
+                        }
+                    }
+                });
+                return false;
             });
         });
     </script>

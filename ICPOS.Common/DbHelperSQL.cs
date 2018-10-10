@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Reflection;
+using System.Text;
 
 namespace ICPOS.Common
 {
@@ -877,5 +878,31 @@ namespace ICPOS.Common
             return list;
         }
         #endregion
+
+        public static string DataTableConvertJson(string sql,out int count)
+        {
+            DataTable dt = Query(sql).Tables[0];
+            StringBuilder jsonstr = new StringBuilder();
+
+            if (dt!=null&&dt.Rows.Count>0)
+            {
+                count = dt.Rows.Count;
+                jsonstr.Append("[");
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    jsonstr.Append("{");
+                    for (int j = 0; j < dt.Columns.Count; j++)
+                    {
+                        jsonstr.Append("\"" + dt.Columns[j] + "\":\"" + dt.Rows[i][j] + "\",");
+                    }
+                    jsonstr.Remove(jsonstr.Length - 1, 1);
+                    jsonstr.Append("},");
+                }
+                jsonstr.Remove(jsonstr.Length - 1, 1);
+                jsonstr.Append("]");
+            }
+            count = 0;
+            return jsonstr.ToString();
+        }
     }
 }

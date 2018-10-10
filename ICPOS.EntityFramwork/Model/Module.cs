@@ -116,8 +116,9 @@ namespace ICPOS.EntityFramwork.Model
 			set{ _module_virtualurl=value;}
 			get{return _module_virtualurl;}
 		}
-		#endregion Model
+        
+        #endregion Model
 
-	}
+    }
 }
 
