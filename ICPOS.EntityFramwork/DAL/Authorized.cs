@@ -46,9 +46,9 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from Authorized");
-			strSql.Append(" where Authorized_ID=SQL2012Authorized_ID");
+			strSql.Append(" where Authorized_ID=@Authorized_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Authorized_ID", SqlDbType.Int,4)
+					new SqlParameter("@Authorized_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Authorized_ID;
 
@@ -65,12 +65,12 @@ namespace ICPOS.EntityFramwork.DAL
 			strSql.Append("insert into Authorized(");
 			strSql.Append("Role_ID,Module_ID,Crud_Operation)");
 			strSql.Append(" values (");
-			strSql.Append("SQL2012Role_ID,SQL2012Module_ID,SQL2012Crud_Operation)");
+			strSql.Append("@Role_ID,@Module_ID,@Crud_Operation)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Role_ID", SqlDbType.Int,4),
-					new SqlParameter("SQL2012Module_ID", SqlDbType.Int,4),
-					new SqlParameter("SQL2012Crud_Operation", SqlDbType.Int,4)};
+					new SqlParameter("@Role_ID", SqlDbType.Int,4),
+					new SqlParameter("@Module_ID", SqlDbType.Int,4),
+					new SqlParameter("@Crud_Operation", SqlDbType.Int,4)};
 			parameters[0].Value = model.Role_ID;
 			parameters[1].Value = model.Module_ID;
 			parameters[2].Value = model.Crud_Operation;
@@ -92,15 +92,15 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update Authorized set ");
-			strSql.Append("Role_ID=SQL2012Role_ID,");
-			strSql.Append("Module_ID=SQL2012Module_ID,");
-			strSql.Append("Crud_Operation=SQL2012Crud_Operation");
-			strSql.Append(" where Authorized_ID=SQL2012Authorized_ID");
+			strSql.Append("Role_ID=@Role_ID,");
+			strSql.Append("Module_ID=@Module_ID,");
+			strSql.Append("Crud_Operation=@Crud_Operation");
+			strSql.Append(" where Authorized_ID=@Authorized_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Role_ID", SqlDbType.Int,4),
-					new SqlParameter("SQL2012Module_ID", SqlDbType.Int,4),
-					new SqlParameter("SQL2012Crud_Operation", SqlDbType.Int,4),
-					new SqlParameter("SQL2012Authorized_ID", SqlDbType.Int,4)};
+					new SqlParameter("@Role_ID", SqlDbType.Int,4),
+					new SqlParameter("@Module_ID", SqlDbType.Int,4),
+					new SqlParameter("@Crud_Operation", SqlDbType.Int,4),
+					new SqlParameter("@Authorized_ID", SqlDbType.Int,4)};
 			parameters[0].Value = model.Role_ID;
 			parameters[1].Value = model.Module_ID;
 			parameters[2].Value = model.Crud_Operation;
@@ -125,9 +125,9 @@ namespace ICPOS.EntityFramwork.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Authorized ");
-			strSql.Append(" where Authorized_ID=SQL2012Authorized_ID");
+			strSql.Append(" where Authorized_ID=@Authorized_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Authorized_ID", SqlDbType.Int,4)
+					new SqlParameter("@Authorized_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Authorized_ID;
 
@@ -169,9 +169,9 @@ namespace ICPOS.EntityFramwork.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Authorized_ID,Role_ID,Module_ID,Crud_Operation from Authorized ");
-			strSql.Append(" where Authorized_ID=SQL2012Authorized_ID");
+			strSql.Append(" where Authorized_ID=@Authorized_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Authorized_ID", SqlDbType.Int,4)
+					new SqlParameter("@Authorized_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Authorized_ID;
 
@@ -306,13 +306,13 @@ namespace ICPOS.EntityFramwork.DAL
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012tblName", SqlDbType.VarChar, 255),
-					new SqlParameter("SQL2012fldName", SqlDbType.VarChar, 255),
-					new SqlParameter("SQL2012PageSize", SqlDbType.Int),
-					new SqlParameter("SQL2012PageIndex", SqlDbType.Int),
-					new SqlParameter("SQL2012IsReCount", SqlDbType.Bit),
-					new SqlParameter("SQL2012OrderType", SqlDbType.Bit),
-					new SqlParameter("SQL2012strWhere", SqlDbType.VarChar,1000),
+					new SqlParameter("@tblName", SqlDbType.VarChar, 255),
+					new SqlParameter("@fldName", SqlDbType.VarChar, 255),
+					new SqlParameter("@PageSize", SqlDbType.Int),
+					new SqlParameter("@PageIndex", SqlDbType.Int),
+					new SqlParameter("@IsReCount", SqlDbType.Bit),
+					new SqlParameter("@OrderType", SqlDbType.Bit),
+					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
 			parameters[0].Value = "Authorized";
 			parameters[1].Value = "Authorized_ID";

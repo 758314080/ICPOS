@@ -196,25 +196,16 @@
     <Content Include="Script\layui\lay\modules\tree.js" />
     <Content Include="Script\layui\lay\modules\upload.js" />
     <Content Include="Script\layui\lay\modules\util.js" />
+    <Content Include="Script\layui_exts\dtree\dtree.css" />
+    <Content Include="Script\layui_exts\dtree\dtree.js" />
+    <Content Include="Script\layui_exts\dtree\font\iconfont.css" />
+    <Content Include="Script\layui_exts\dtree\font\iconfont.svg" />
+    <Content Include="Script\layui_exts\TableTree\treetable.js" />
     <Content Include="Script\Select2\css\select2.css" />
     <Content Include="Script\Select2\select2.full.js" />
     <Content Include="Script\Select2\select2.full.min.js" />
     <Content Include="Script\Select2\select2.js" />
     <Content Include="Script\Select2\select2.min.js" />
-    <Content Include="Script\ThirdParty\atree\atree.js" />
-    <Content Include="Script\ThirdParty\atree\font\iconfont.svg" />
-    <Content Include="Script\ThirdParty\atree\jquery.js" />
-    <Content Include="Script\ThirdParty\atree\layui.css" />
-    <Content Include="Script\ThirdParty\atree\layui.js" />
-    <Content Include="Script\ThirdParty\authtree\authtree.js" />
-    <Content Include="Script\ThirdParty\larrylib\city.js" />
-    <Content Include="Script\ThirdParty\larrylib\common.js" />
-    <Content Include="Script\ThirdParty\larrylib\larryElem.js" />
-    <Content Include="Script\ThirdParty\larrylib\larryMenu.js" />
-    <Content Include="Script\ThirdParty\larrylib\larryTab.js" />
-    <Content Include="Script\ThirdParty\larrylib\treetable-lay\treetable.css" />
-    <Content Include="Script\ThirdParty\larrylib\treetable-lay\treetable.js" />
-    <Content Include="Script\ThirdParty\treeGrid\treeGrid.js" />
     <Content Include="Script\zTreeV3\css\awesomeStyle\awesome.css" />
     <Content Include="Script\zTreeV3\css\awesomeStyle\img\loading.gif" />
     <Content Include="Script\zTreeV3\css\demo.css" />
@@ -398,7 +389,6 @@
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\AdmHome\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdmUsers\Login.cshtml" />
-    <Content Include="Areas\Admin\Views\AdmMenu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\AdmMenu\MenuList.cshtml" />
     <Content Include="Areas\Admin\Views\AdmMenu\MenuAdd.cshtml" />
     <Content Include="Areas\Admin\Views\AdmUsers\UsersHandle.cshtml" />
@@ -413,9 +403,10 @@
     <Content Include="Script\zTreeV3\css\awesomeStyle\awesome.less" />
     <Content Include="Script\zTreeV3\css\awesomeStyle\fa.less" />
     <Content Include="Script\zTreeV3\css\zTreeStyle\img\Thumbs.db" />
-    <Content Include="Script\ThirdParty\atree\font\iconfont.eot" />
-    <Content Include="Script\ThirdParty\atree\font\iconfont.ttf" />
-    <Content Include="Script\ThirdParty\atree\font\iconfont.woff" />
+    <Content Include="Script\layui_exts\dtree\font\iconfont.eot" />
+    <Content Include="Script\layui_exts\dtree\font\iconfont.ttf" />
+    <Content Include="Script\layui_exts\dtree\font\iconfont.woff" />
+    <Content Include="Script\layui_exts\dtree\font\icons.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -40,10 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dto\Menu\MenuTreeDto.cs" />
-    <Compile Include="Dto\Menu\MenuListDto.cs" />
-    <Compile Include="Dto\Menu\NavigationBarDto.cs" />
-    <Compile Include="Dto\Users\UserListDto.cs" />
+    <Compile Include="Dto\Adm_Role\RoleTreeDto.cs" />
+    <Compile Include="Dto\Adm_Users\UserListDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

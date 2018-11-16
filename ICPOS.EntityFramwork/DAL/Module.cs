@@ -46,9 +46,9 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from Module");
-			strSql.Append(" where Module_ID=Module_ID");
+			strSql.Append(" where Module_ID=@Module_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("Module_ID", SqlDbType.Int,4)
+					new SqlParameter("@Module_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Module_ID;
 
@@ -65,18 +65,18 @@ namespace ICPOS.EntityFramwork.DAL
 			strSql.Append("insert into Module(");
 			strSql.Append("Type,Module_Name,Module_Parent,Module_Hierarchy,Module_Level,Module_OrderBy,ModuleIcon_Url,Module_TrueUrl,Module_VirtualUrl)");
 			strSql.Append(" values (");
-			strSql.Append("Type,Module_Name,Module_Parent,Module_Hierarchy,Module_Level,Module_OrderBy,ModuleIcon_Url,Module_TrueUrl,Module_VirtualUrl)");
+			strSql.Append("@Type,@Module_Name,@Module_Parent,@Module_Hierarchy,@Module_Level,@Module_OrderBy,@ModuleIcon_Url,@Module_TrueUrl,@Module_VirtualUrl)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("Type", SqlDbType.Int,4),
-					new SqlParameter("Module_Name", SqlDbType.NVarChar,20),
-					new SqlParameter("Module_Parent", SqlDbType.Int,4),
-					new SqlParameter("Module_Hierarchy", SqlDbType.VarChar,50),
-					new SqlParameter("Module_Level", SqlDbType.Int,4),
-					new SqlParameter("Module_OrderBy", SqlDbType.Int,4),
-					new SqlParameter("ModuleIcon_Url", SqlDbType.VarChar,200),
-					new SqlParameter("Module_TrueUrl", SqlDbType.VarChar,200),
-					new SqlParameter("Module_VirtualUrl", SqlDbType.VarChar,200)};
+					new SqlParameter("@Type", SqlDbType.Int,4),
+					new SqlParameter("@Module_Name", SqlDbType.NVarChar,20),
+					new SqlParameter("@Module_Parent", SqlDbType.Int,4),
+					new SqlParameter("@Module_Hierarchy", SqlDbType.VarChar,50),
+					new SqlParameter("@Module_Level", SqlDbType.Int,4),
+					new SqlParameter("@Module_OrderBy", SqlDbType.Int,4),
+					new SqlParameter("@ModuleIcon_Url", SqlDbType.VarChar,200),
+					new SqlParameter("@Module_TrueUrl", SqlDbType.VarChar,200),
+					new SqlParameter("@Module_VirtualUrl", SqlDbType.VarChar,200)};
 			parameters[0].Value = model.Type;
 			parameters[1].Value = model.Module_Name;
 			parameters[2].Value = model.Module_Parent;
@@ -104,27 +104,27 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update Module set ");
-			strSql.Append("Type=Type,");
-			strSql.Append("Module_Name=Module_Name,");
-			strSql.Append("Module_Parent=Module_Parent,");
-			strSql.Append("Module_Hierarchy=Module_Hierarchy,");
-			strSql.Append("Module_Level=Module_Level,");
-			strSql.Append("Module_OrderBy=Module_OrderBy,");
-			strSql.Append("ModuleIcon_Url=ModuleIcon_Url,");
-			strSql.Append("Module_TrueUrl=Module_TrueUrl,");
-			strSql.Append("Module_VirtualUrl=Module_VirtualUrl");
-			strSql.Append(" where Module_ID=Module_ID");
+			strSql.Append("Type=@Type,");
+			strSql.Append("Module_Name=@Module_Name,");
+			strSql.Append("Module_Parent=@Module_Parent,");
+			strSql.Append("Module_Hierarchy=@Module_Hierarchy,");
+			strSql.Append("Module_Level=@Module_Level,");
+			strSql.Append("Module_OrderBy=@Module_OrderBy,");
+			strSql.Append("ModuleIcon_Url=@ModuleIcon_Url,");
+			strSql.Append("Module_TrueUrl=@Module_TrueUrl,");
+			strSql.Append("Module_VirtualUrl=@Module_VirtualUrl");
+			strSql.Append(" where Module_ID=@Module_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("Type", SqlDbType.Int,4),
-					new SqlParameter("Module_Name", SqlDbType.NVarChar,20),
-					new SqlParameter("Module_Parent", SqlDbType.Int,4),
-					new SqlParameter("Module_Hierarchy", SqlDbType.VarChar,50),
-					new SqlParameter("Module_Level", SqlDbType.Int,4),
-					new SqlParameter("Module_OrderBy", SqlDbType.Int,4),
-					new SqlParameter("ModuleIcon_Url", SqlDbType.VarChar,200),
-					new SqlParameter("Module_TrueUrl", SqlDbType.VarChar,200),
-					new SqlParameter("Module_VirtualUrl", SqlDbType.VarChar,200),
-					new SqlParameter("Module_ID", SqlDbType.Int,4)};
+					new SqlParameter("@Type", SqlDbType.Int,4),
+					new SqlParameter("@Module_Name", SqlDbType.NVarChar,20),
+					new SqlParameter("@Module_Parent", SqlDbType.Int,4),
+					new SqlParameter("@Module_Hierarchy", SqlDbType.VarChar,50),
+					new SqlParameter("@Module_Level", SqlDbType.Int,4),
+					new SqlParameter("@Module_OrderBy", SqlDbType.Int,4),
+					new SqlParameter("@ModuleIcon_Url", SqlDbType.VarChar,200),
+					new SqlParameter("@Module_TrueUrl", SqlDbType.VarChar,200),
+					new SqlParameter("@Module_VirtualUrl", SqlDbType.VarChar,200),
+					new SqlParameter("@Module_ID", SqlDbType.Int,4)};
 			parameters[0].Value = model.Type;
 			parameters[1].Value = model.Module_Name;
 			parameters[2].Value = model.Module_Parent;
@@ -155,9 +155,9 @@ namespace ICPOS.EntityFramwork.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Module ");
-			strSql.Append(" where Module_ID=Module_ID");
+			strSql.Append(" where Module_ID=@Module_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("Module_ID", SqlDbType.Int,4)
+					new SqlParameter("@Module_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Module_ID;
 
@@ -199,9 +199,9 @@ namespace ICPOS.EntityFramwork.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Module_ID,Type,Module_Name,Module_Parent,Module_Hierarchy,Module_Level,Module_OrderBy,ModuleIcon_Url,Module_TrueUrl,Module_VirtualUrl from Module ");
-			strSql.Append(" where Module_ID=Module_ID");
+			strSql.Append(" where Module_ID=@Module_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("Module_ID", SqlDbType.Int,4)
+					new SqlParameter("@Module_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Module_ID;
 

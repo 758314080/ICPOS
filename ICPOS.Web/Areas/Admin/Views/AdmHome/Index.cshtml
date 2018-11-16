@@ -58,14 +58,14 @@
                         foreach (var item in first)
                         {
                             strbd.Append("<li class=\"layui-nav-item\">");
-                            strbd.AppendFormat("<a class=\"\" id=\"{0}\" data-url=\"{1}\" href=\"javascript:\" >{2}</a>", item.Module_ID, item.Module_TrueUrl, item.Module_Name);
+                            strbd.AppendFormat("<a class=\"\" id=\"{0}\" data-url=\"{1}\" href=\"javascript:\" >{2}</a>", item.Module_ID, item.Module_VirtualUrl, item.Module_Name);
                             var second = menulist.Where(a => a.Module_Level == 2 && a.Module_Parent == item.Module_ID);
                             if (second != null && second.Any())
                             {
                                 strbd.Append("<dl class=\"layui-nav-child\">");
                                 foreach (var item2 in second)
                                 {
-                                    strbd.AppendFormat("<dd><a class=\"\" id=\"{0}\" data-url=\"{1}\" href=\"javascript:\" >{2}</a></dd>", item2.Module_ID, item2.Module_TrueUrl, item2.Module_Name);
+                                    strbd.AppendFormat("<dd><a class=\"\" id=\"{0}\" data-url=\"{1}\" href=\"javascript:\" >{2}</a></dd>", item2.Module_ID, item2.Module_VirtualUrl, item2.Module_Name);
                                 }
                                 strbd.Append("</dl>");
                             }
@@ -107,7 +107,7 @@
 
                 //选项卡  tabTitle(选项卡标题)；tabUrl(选项卡地址)；tabId(导航栏ID)
                 function addTab(tabTitle, tabUrl, tabId) {
-                    console.log(tabTitle + ',' + tabUrl + ',' + tabId);
+                    //console.log(tabTitle + ',' + tabUrl + ',' + tabId);
                     if (tabUrl == "#") {
 
                     }else if ($(".layui-tab-title li[lay-id=" + tabId + "]").length > 0) {

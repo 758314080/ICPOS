@@ -879,6 +879,13 @@ namespace ICPOS.Common
         }
         #endregion
 
+        #region 自定义
+        /// <summary>
+        /// DataTable转换Json
+        /// </summary>
+        /// <param name="sql">sql语句</param>
+        /// <param name="count">返回datatable行数</param>
+        /// <returns>json串</returns>
         public static string DataTableConvertJson(string sql,out int count)
         {
             DataTable dt = Query(sql).Tables[0];
@@ -904,5 +911,6 @@ namespace ICPOS.Common
             count = 0;
             return jsonstr.ToString();
         }
+        #endregion
     }
 }

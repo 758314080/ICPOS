@@ -34,7 +34,7 @@
             <label class="layui-form-label">角色权限</label>
             <div class="layui-input-block">
                 <div class="layui-input-inline">
-                    <div id="Privilege-tree"></div>
+                    <ul id="RoleTree" class="dtree" data-id="0"></ul>
                 </div>
             </div>
         </div>
@@ -46,51 +46,26 @@
     </form>
     <script src="~/Script/layui/layui.js"></script>
     <script type="text/javascript">
-         layui.config({
-        base: '/Script/ThirdParty/',
-    }).extend({
-        authtree: 'authtree',
-    });
-    layui.use(['table', 'authtree', 'layer'], function () {
-        var $ = layui.jquery;
-        var authtree = layui.authtree;
-        var form = layui.form;
-        var layer = layui.layer;
+        layui.config({
+            base: '/Script/layui_exts/dtree/',
+        }).extend({
+            dtree: 'dtree' //定义该组件模块名
+        }).use(['element', 'layer', 'dtree'], function () {
+            var layer = layui.layer,
+                dtree = layui.dtree,
+                $ = layui.$;
 
-        $.ajax({
-            url: '@Url.Action("GetMenuList", "AdmMenu")',
-            dataType: 'json',
-            success: function (data) {
-                // 渲染时传入渲染目标ID，树形结构数据（具体结构看样例，checked表示默认选中），以及input表单的名字
-                authtree.render('#Privilege-tree', data.data.trees, { inputname: 'authids[]', layfilter: 'lay-check-auth', openall: false });
-                form.on('checkbox(lay-check-auth)', function (data) {
-                    // 注意这里：需要等待事件冒泡完成，不然获取叶子节点不准确。
-                    setTimeout(function () {
-                        // 获取选中的叶子节点
-                        var leaf = authtree.getLeaf('#Privilege-tree');
-                        console.log(leaf);
-                    }, 100);
-                });
-            }
-        });
-        // 异步提交表单信息
-        form.on('submit(submit)', function (obj) {
-            // 注意如果直接通过layui的obj.field可能会出现问题，layuiAdmin请使用admin.req();
-            var authids = authtree.getAll('#Privilege-tree');
-            console.log('Choosed authids is', authids);
-            obj.field.authids = authids.join(',');
-            $.ajax({
-                type: 'POST',                
-                url: '@Url.Action("AddOrUpd", "AdmRole")',
-                data: obj.field,
-                dataType: 'json',
-                success: function (res) {
-                    layer.alert('提交成功！');
-                }
+
+            dtree.render({
+                elem: "#RoleTree",  //绑定元素
+                url: "@Url.Action("GetRoleMenuList", "AdmMenu")"  //异步接口
             });
-            return false;
+
+            //单击节点 监听事件
+            dtree.on("node('demoTree1')", function (param) {
+                layer.msg(JSON.stringify(param));
+            });
         });
-    });
     </script>
 </body>
 </html>

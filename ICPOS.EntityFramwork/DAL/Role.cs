@@ -46,9 +46,9 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select count(1) from Role");
-			strSql.Append(" where Role_ID=SQL2012Role_ID");
+			strSql.Append(" where Role_ID=@Role_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Role_ID", SqlDbType.Int,4)
+					new SqlParameter("@Role_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Role_ID;
 
@@ -65,12 +65,12 @@ namespace ICPOS.EntityFramwork.DAL
 			strSql.Append("insert into Role(");
 			strSql.Append("Role_Name,Role_Description,Role_Priv_Level)");
 			strSql.Append(" values (");
-			strSql.Append("SQL2012Role_Name,SQL2012Role_Description,SQL2012Role_Priv_Level)");
+			strSql.Append("@Role_Name,@Role_Description,@Role_Priv_Level)");
 			strSql.Append(";select @@IDENTITY");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Role_Name", SqlDbType.NVarChar,20),
-					new SqlParameter("SQL2012Role_Description", SqlDbType.NVarChar,50),
-					new SqlParameter("SQL2012Role_Priv_Level", SqlDbType.Int,4)};
+					new SqlParameter("@Role_Name", SqlDbType.NVarChar,20),
+					new SqlParameter("@Role_Description", SqlDbType.NVarChar,50),
+					new SqlParameter("@Role_Priv_Level", SqlDbType.Int,4)};
 			parameters[0].Value = model.Role_Name;
 			parameters[1].Value = model.Role_Description;
 			parameters[2].Value = model.Role_Priv_Level;
@@ -92,15 +92,15 @@ namespace ICPOS.EntityFramwork.DAL
 		{
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("update Role set ");
-			strSql.Append("Role_Name=SQL2012Role_Name,");
-			strSql.Append("Role_Description=SQL2012Role_Description,");
-			strSql.Append("Role_Priv_Level=SQL2012Role_Priv_Level");
-			strSql.Append(" where Role_ID=SQL2012Role_ID");
+			strSql.Append("Role_Name=@Role_Name,");
+			strSql.Append("Role_Description=@Role_Description,");
+			strSql.Append("Role_Priv_Level=@Role_Priv_Level");
+			strSql.Append(" where Role_ID=@Role_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Role_Name", SqlDbType.NVarChar,20),
-					new SqlParameter("SQL2012Role_Description", SqlDbType.NVarChar,50),
-					new SqlParameter("SQL2012Role_Priv_Level", SqlDbType.Int,4),
-					new SqlParameter("SQL2012Role_ID", SqlDbType.Int,4)};
+					new SqlParameter("@Role_Name", SqlDbType.NVarChar,20),
+					new SqlParameter("@Role_Description", SqlDbType.NVarChar,50),
+					new SqlParameter("@Role_Priv_Level", SqlDbType.Int,4),
+					new SqlParameter("@Role_ID", SqlDbType.Int,4)};
 			parameters[0].Value = model.Role_Name;
 			parameters[1].Value = model.Role_Description;
 			parameters[2].Value = model.Role_Priv_Level;
@@ -125,9 +125,9 @@ namespace ICPOS.EntityFramwork.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("delete from Role ");
-			strSql.Append(" where Role_ID=SQL2012Role_ID");
+			strSql.Append(" where Role_ID=@Role_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Role_ID", SqlDbType.Int,4)
+					new SqlParameter("@Role_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Role_ID;
 
@@ -169,9 +169,9 @@ namespace ICPOS.EntityFramwork.DAL
 			
 			StringBuilder strSql=new StringBuilder();
 			strSql.Append("select  top 1 Role_ID,Role_Name,Role_Description,Role_Priv_Level from Role ");
-			strSql.Append(" where Role_ID=SQL2012Role_ID");
+			strSql.Append(" where Role_ID=@Role_ID");
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012Role_ID", SqlDbType.Int,4)
+					new SqlParameter("@Role_ID", SqlDbType.Int,4)
 			};
 			parameters[0].Value = Role_ID;
 
@@ -306,13 +306,13 @@ namespace ICPOS.EntityFramwork.DAL
 		public DataSet GetList(int PageSize,int PageIndex,string strWhere)
 		{
 			SqlParameter[] parameters = {
-					new SqlParameter("SQL2012tblName", SqlDbType.VarChar, 255),
-					new SqlParameter("SQL2012fldName", SqlDbType.VarChar, 255),
-					new SqlParameter("SQL2012PageSize", SqlDbType.Int),
-					new SqlParameter("SQL2012PageIndex", SqlDbType.Int),
-					new SqlParameter("SQL2012IsReCount", SqlDbType.Bit),
-					new SqlParameter("SQL2012OrderType", SqlDbType.Bit),
-					new SqlParameter("SQL2012strWhere", SqlDbType.VarChar,1000),
+					new SqlParameter("@tblName", SqlDbType.VarChar, 255),
+					new SqlParameter("@fldName", SqlDbType.VarChar, 255),
+					new SqlParameter("@PageSize", SqlDbType.Int),
+					new SqlParameter("@PageIndex", SqlDbType.Int),
+					new SqlParameter("@IsReCount", SqlDbType.Bit),
+					new SqlParameter("@OrderType", SqlDbType.Bit),
+					new SqlParameter("@strWhere", SqlDbType.VarChar,1000),
 					};
 			parameters[0].Value = "Role";
 			parameters[1].Value = "Role_ID";
